@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BarbeiroActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Status:" />
+
+        <Spinner
+            android:id="@+id/spStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/txtViewTotalFila"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fila [Total Pessoas: 10]" />
+
+        <ListView
+            android:id="@+id/lvUsuariosFila"
+            android:layout_width="match_parent"
+            android:layout_height="555dp" >
+
+        </ListView>
+
+        <TextView
+            android:id="@+id/txtViewProximoUsuarioFila"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Próximo Usuário da Fila: " />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnPularUsuarioFila"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="pularUsuario"
+                android:text="Pular" />
+
+            <Button
+                android:id="@+id/btnIniciarFinalizarCorte"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="iniciarFinalizarCorte"
+                android:text="INICIAR PRÓXIMO" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

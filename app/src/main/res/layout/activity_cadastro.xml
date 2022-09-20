@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CadastroActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BarberShapp"
+            android:textSize="48sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Olá! Que tal aprimorar o visual?"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Realizar Cadastro"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edtTxtNome"
+            android:layout_width="283dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text=""
+            android:hint="Digite aqui seu nome"/>
+
+        <EditText
+            android:id="@+id/edtTxtUsuario"
+            android:layout_width="289dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="Digite aqui seu usuario"/>
+
+        <EditText
+            android:id="@+id/edtTxtEmail"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Digite aqui seu email"/>
+
+        <EditText
+            android:id="@+id/edtTxtSenhaC"
+            android:layout_width="283dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:hint="Defina uma senha"/>
+
+        <CheckBox
+            android:id="@+id/cBoxBarbeiro"
+            android:layout_width="283dp"
+            android:layout_height="wrap_content"
+            android:text="Se cadastrar como Barbeiro" />
+
+        <Button
+            android:id="@+id/btnCadastrar"
+            android:layout_width="280dp"
+            android:layout_height="64dp"
+            android:onClick="realizarCadastro"
+            android:text="Cadastrar" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Já possui conta? Acesse agora!"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="277dp"
+            android:layout_height="68dp"
+            android:onClick="irParaLogin"
+            android:text="IR PARA LOGIN" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

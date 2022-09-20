@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditarBarbeariaActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">>
+
+        <TextView
+            android:id="@+id/textView522"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ATUALIZAR BARBEARIA" />
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            tools:context="com.example.mapwithmarker.MapsMarkerActivity"
+            map:cameraTilt="30"
+            map:cameraZoom="20"
+            map:mapType="normal"
+            map:uiCompass="false"
+            map:uiRotateGestures="true"
+            map:uiScrollGestures="true"
+            map:uiTiltGestures="true"
+            map:uiZoomControls="true"
+            map:uiZoomGestures="true"
+            />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NOME BARBEARIA (*)" />
+
+        <EditText
+            android:id="@+id/edtTxtABNome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="DIGITE UM NOME PARA SUA BARBEARIA" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ENDEREÇO (*)" />
+
+        <EditText
+            android:id="@+id/edtTxtABEndereco"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="DIGITE O ENDEREÇO" />
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="HORÁRIO FUNCIONAMENTO (*)" />
+
+        <EditText
+            android:id="@+id/edtTxtABHorario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="HORÁRIO DE FUNCIONAMENTO ex: 10:00 - 20:00" />
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CONTATO:" />
+
+        <EditText
+            android:id="@+id/edtTxtABContato"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="DIGITE O TELEFONE OU FORMA DE CONTATO" />
+
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="FORMAS DE PAGAMENTO (*)" />
+
+        <EditText
+            android:id="@+id/edtTxtABPagamentos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="FORMAS DE PAGAMENTO. ex: cartão de crédito, débito"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/btnAtualizarBarbearia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="atualizarBarbearia"
+            android:text="Atualizar Barbearia" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
