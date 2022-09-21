@@ -1,4 +1,4 @@
-# BarberShappPI
+# BarberShapp
 
 472077 – Bergson Serafim de Souza\
 469959 – Vitoria Moreira de Souza\
