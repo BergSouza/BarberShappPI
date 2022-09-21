@@ -11,3 +11,6 @@ https://docs.google.com/document/d/1o5KphlxbatoaRP2_fpYDThWTrMCiYUK6ZLdLk0TO2RI/
 
 #### Desenvolvimento: 
 https://trello.com/b/Onz33ZRj
+
+#### Prototipagem:
+https://www.figma.com/file/1U0orgVaNSUSlaYRFCnNir/Barber-Shapp
