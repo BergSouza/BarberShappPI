@@ -10,7 +10,7 @@ Este projeto tem como finalidade desenvolver um aplicativo de gerenciamento de b
 https://docs.google.com/document/d/1o5KphlxbatoaRP2_fpYDThWTrMCiYUK6ZLdLk0TO2RI/edit?usp=sharing
 
 #### Plano de medição:
-https://docs.google.com/document/d/15HGi1-JpfSLue1UfCVzIELKjrAMzBhl_/edit?usp=sharing&ouid=105080987023017461863&rtpof=true&sd=true
+https://docs.google.com/document/d/15HGi1-JpfSLue1UfCVzIELKjrAMzBhl_/edit?usp=sharing
 
 #### Desenvolvimento: 
 https://trello.com/b/Onz33ZRj
