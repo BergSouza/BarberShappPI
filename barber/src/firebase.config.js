@@ -2,6 +2,9 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import "firebase/storage";
+// Import it from your preferred package.
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { API_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, MESSAGING_SENDERS_ID, APP_ID, MEASUREMENT_ID } from "@env"
 
@@ -23,7 +26,8 @@ if (!firebase.apps.length) {
 }
 
 const authF = firebase.auth(app);
-export const authFire = authF
+authF.setPersistence(firebase.auth.Auth.Persistence.NONE);
+export const authFire = authF;
 
 const fire = firebase.firestore();
 fire.settings({ experimentalForceLongPolling: true });

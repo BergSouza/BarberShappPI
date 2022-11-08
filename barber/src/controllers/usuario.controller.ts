@@ -7,34 +7,44 @@ const COLECAO_USUARIOS = "usuarios";
 const ASYNC_ID_USUARIO = "ID_USUARIO";
 
 export const cadastrarUsuarioAuthFirestore = async (email: string, senha: string) => {
-    const credenciais = await authFire.createUserWithEmailAndPassword(email, senha);
-    const usuarioFirebase = credenciais.user;
+    try {
+        const credenciais = await authFire.createUserWithEmailAndPassword(email, senha);
+        const usuarioFirebase = credenciais.user;
 
-    if (usuarioFirebase !== null) {
-        const usuario: Usuario = {
-            id: usuarioFirebase.uid,
-            nome: "",
-            telefone: "",
-            email: usuarioFirebase.email ? usuarioFirebase.email : '',
-            foto_perfil: "",
-            eBarbeiro: false,
-            eDonoBarbearia: false,
-            agenda: []
+        if (usuarioFirebase !== null) {
+            const usuario: Usuario = {
+                id: usuarioFirebase.uid,
+                nome: "",
+                telefone: "",
+                email: usuarioFirebase.email ? usuarioFirebase.email : '',
+                foto_perfil: "",
+                eBarbeiro: false,
+                eDonoBarbearia: false,
+                agenda: []
+            }
+
+            return await atualizarUsuarioFirestore(usuario);
         }
 
-        return await atualizarUsuarioFirestore(usuario);
+        return false
+    } catch (error) {
+        console.log(error)
+        return false;
     }
-
-    return false
 }
 
 export const entrar = async (email: string, senha: string) => {
-    const credenciais = await authFire.signInWithEmailAndPassword(email, senha);
-    const usuarioFirebase = credenciais.user;
-    if (usuarioFirebase !== null) {
-        return await criarIdUsuarioAsyncStorage(usuarioFirebase.uid);
+    try {
+        const credenciais = await authFire.signInWithEmailAndPassword(email, senha);
+        const usuarioFirebase = credenciais.user;
+        if (usuarioFirebase !== null) {
+            return await criarIdUsuarioAsyncStorage(usuarioFirebase.uid);
+        }
+        return true;
+
+    } catch (error) {
+        return false;
     }
-    return false;
 }
 
 export const deslogar = async () => {

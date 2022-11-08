@@ -1,53 +1,25 @@
 import * as React from 'react';
-import { Pressable, Stack, Text, TextInput } from "@react-native-material/core";
 import { RootStackParamList } from '../../interfaces/navegation.interface';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
+import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useState } from 'react';
-import {MediaType, launchImageLibrary} from 'react-native-image-picker';
+import { MediaType, launchImageLibrary } from 'react-native-image-picker';
+import { Stack } from '@react-native-material/core';
+import ButtonComponent from '../../components/Button';
+import InputComponent from '../../components/Input';
+import ChooseImageComponent from '../../components/ChooseImage';
 
 type AdicionarBarbeariaProps = NativeStackScreenProps<RootStackParamList, "AdicionarBarbearia">;
 
 const AdicionarBarbeariaScreen: React.FC<AdicionarBarbeariaProps> = (props) => {
-    const [cnpj, setCnpj] = useState<string>('');
     const [endereco, setEndereco] = useState<string>('');
-    const [fotoCaminho, setFotoCaminho] = useState();
+    const [cnpj, setCnpj] = useState<string>('');
+    const [fotoCaminho, setFotoCaminho] = useState<undefined | string>();
 
-    const chooseFile = () => {
+    const [erroEndereco, setErroEndereco] = useState(false);
+    const [erroCNPJ, setErroCNPJ] = useState(false);
 
-        const PHOTO:MediaType = "photo";
-
-        const options = {
-            title: 'Select Image',
-            customButtons: [
-                {
-                    name: 'customOptionKey',
-                    title: 'Choose Photo from Custom Option'
-                },
-            ],
-            storageOptions: {
-                skipBackup: true,
-                path: 'images',
-            },
-            mediaType: PHOTO
-        };
-
-        launchImageLibrary(options, (response) => {
-            console.log('Response = ', response);
-
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-            } else if (response.errorMessage) {
-                console.log('ImagePicker Error: ', response.errorMessage);
-            } else {
-                let source = response;
-                console.log(response)
-                //setFotoCaminho(source.assets);
-            }
-        });
-    };
-
-    const cadastrarBarbearia = async () => {
+    const tentarCadastrarBarbearia = () => {
         if (cnpj || endereco) {
             Alert.alert(
                 "Preencha todos os campos!",
@@ -58,33 +30,24 @@ const AdicionarBarbeariaScreen: React.FC<AdicionarBarbeariaProps> = (props) => {
     }
 
     return (
-        <Stack spacing={2} style={{ margin: 16 }}>
-            <TextInput placeholder="CNPJ"
-                variant="outlined"
-                onChangeText={newCNPJ => setCnpj(newCNPJ)}
+        <Stack spacing={2} style={{ margin: 16, justifyContent: "center", position: "absolute", top: 0, bottom: 0, left: 0, right: 0 }}>
+
+            <View style={{ justifyContent: 'center', alignItems: "center", borderWidth: 1, borderColor: "black" }}>
+                <Image style={{ width: 150, height: 200 }} source={fotoCaminho? {uri: fotoCaminho}: require('../../imagens/sem_foto.jpg')} />
+            </View>
+            <View style={{ margin: 30 }} />
+            <ChooseImageComponent setFotoUri={setFotoCaminho}></ChooseImageComponent>
+            <View style={{ margin: 15 }} />
+
+            <InputComponent placeholder="Endereço" temErro={erroEndereco} textoErro={'Erro no campo endereço'}
+                onChangeText={newEndereco => setEndereco(newEndereco)} onFocus={() => setErroEndereco(false)} />
+
+            <InputComponent placeholder="CNPJ" temErro={erroCNPJ} textoErro={'Erro no campo CNPJ'}
+                onChangeText={newCNPJ => setCnpj(newCNPJ)} onFocus={() => setErroCNPJ(false)}
             />
-            <TextInput placeholder="Endereco"
-                variant="outlined"
-                onChangeText={newEndereco => setEndereco(newEndereco)}
-            />
-
-            {/* <Image
-                source={{ uri: fotoCaminho?.uri }}
-                style={styles.imageStyle}
-            /> */}
-
-            <TouchableOpacity
-                activeOpacity={0.5}
-                // style={styles.buttonStyle}
-                onPress={chooseFile}>
-                <Text>
-                    Choose Image
-                </Text>
-            </TouchableOpacity>
-
-            <Pressable style={styles.button} onPress={() => cadastrarBarbearia()}>
-                <Text style={styles.text}>Cadastrar</Text>
-            </Pressable>
+            <View style={{ margin: 15 }} />
+            <ButtonComponent texto='Cadastrar Barbearia' onPress={() => tentarCadastrarBarbearia()} />
+            <View style={{ margin: 15 }} />
         </Stack>
 
     )

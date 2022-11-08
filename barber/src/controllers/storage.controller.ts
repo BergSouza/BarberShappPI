@@ -2,6 +2,10 @@ import { fireBaseStorage } from "../firebase.config";
 
 const storage = fireBaseStorage.ref();
 
-export const criarArquivo = (caminhoArquivo: string) =>{
-    //return storageRef.child(caminhoArquivo).put();
+export const criarArquivoStorage = (caminhoArquivo: string, arquivo: Blob) =>{
+    return storage.child(caminhoArquivo).put(arquivo);
+}
+
+export const lerArquivoStorage = (caminhoArquivo: string) =>{
+    return storage.child(caminhoArquivo).getDownloadURL();
 }

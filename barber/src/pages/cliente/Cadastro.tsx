@@ -2,9 +2,11 @@ import * as React from 'react';
 import { Pressable, Stack, Text, TextInput } from "@react-native-material/core";
 import { RootStackParamList } from '../../interfaces/navegation.interface';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Alert, StyleSheet } from 'react-native';
+import { Alert, Image, StyleSheet, View } from 'react-native';
 import { useState } from 'react';
 import { cadastrarUsuarioAuthFirestore } from '../../controllers/usuario.controller';
+import InputComponent from '../../components/Input';
+import ButtonComponent from '../../components/Button';
 
 type CadastroScreenProps = NativeStackScreenProps<RootStackParamList, "Cadastro">;
 
@@ -13,80 +15,70 @@ const CadastroScreen: React.FC<CadastroScreenProps> = (props) => {
     const [senha, setSenha] = useState('');
     const [confirmarSenha, setConfirmarSenha] = useState('');
 
-    const cadastrarUsuario = async () => {
+    const [erroEmail, setErroEmail] = useState(false);
+    const [erroSenha, setErroSenha] = useState(false);
+    const [erroConfirmarSenha, setErroConfirmarSenha] = useState(false);
+
+    const tentarCadastrar = () => {
         if (!senha || !confirmarSenha || !email) {
-            Alert.alert(
-                "Preencha todos os campos!",
-                "Confira se todos os campos estão preenchidos",
-                [{ text: "OK" }]
-            );
-        } else if (senha !== confirmarSenha) {
-            Alert.alert(
-                "Erro nas senhas",
-                "Senhas não batem",
-                [{ text: "OK" }]
-            );
-        }else{
-            const foiRegistrado = await cadastrarUsuarioAuthFirestore(email, senha);
-            if(foiRegistrado){
+            !email ? setErroEmail(true) : null;
+            !senha ? setErroSenha(true) : null;
+            !confirmarSenha ? setErroConfirmarSenha(true) : null;
+            return
+        }
+        if (senha !== confirmarSenha) {
+            setErroSenha(true);
+            setErroConfirmarSenha(true);
+            return
+        }
+        cadastrarUsuarioAuthFirestore(email, senha).then((foiRegistrado) => {
+            if (foiRegistrado) {
                 Alert.alert(
                     "Cadastro realizado com sucesso!",
                     "Entre em sua conta",
                     [{ text: "OK" }]
                 );
 
-                props.navigation.push("Home")
-            }else{
+                props.navigation.push("Entrar")
+            } else {
                 Alert.alert(
-                    "Algo deu errado!",
-                    "Erro inesperado...",
+                    "Erro inesperado ao cadastrar!", "Verifique suas informações",
                     [{ text: "OK" }]
                 );
             }
-        }
+
+        }).catch((error) => {
+            Alert.alert(
+                "Erro inesperado ao cadastrar!", error,
+                [{ text: "OK" }]
+            );
+            console.log(error);
+        })
     }
 
     return (
-        <Stack spacing={2} style={{ margin: 16 }}>
-            <TextInput placeholder="Email"
-                variant="outlined"
-                onChangeText={newEmail => setEmail(newEmail)}
+        <Stack spacing={2} style={{ margin: 16, justifyContent: "center", position: "absolute", top: 0, bottom: 0, left: 0, right: 0 }}>
+            <View style={{ justifyContent: 'center', alignItems: "center" }}>
+                <Image style={{ width: 200, height: 100 }} source={require('../../imagens/logo.png')} />
+                <Text style={{ color: "black", fontSize: 25, fontFamily: "courrier" }}>BarberShapp</Text>
+            </View>
+
+            <View style={{ margin: 50 }} />
+            <InputComponent placeholder="Email" temErro={erroEmail} textoErro={'Erro no campo email'}
+                onChangeText={newEmail => setEmail(newEmail)} onFocus={() => setErroEmail(false)}
             />
-            <TextInput placeholder="Senha"
-                variant="outlined"
-                onChangeText={newSenha => setSenha(newSenha)}
+            <InputComponent placeholder="Senha" temErro={erroSenha} textoErro={senha !== confirmarSenha ? 'Senhas não são iguais' : 'Erro no campo senha'} secureTextEntry={true}
+                onChangeText={newSenha => setSenha(newSenha)} onFocus={() => setErroSenha(false)}
             />
-            <TextInput placeholder="Confirmar Senha"
-                variant="outlined"
-                onChangeText={newConfirmarSenha => setConfirmarSenha(newConfirmarSenha)}
+            <InputComponent placeholder="Confirmar Senha" temErro={erroConfirmarSenha} textoErro={senha !== confirmarSenha ? 'Senhas não são iguais' : 'Erro no campo senha'} secureTextEntry={true}
+                onChangeText={newConfirmarSenha => setConfirmarSenha(newConfirmarSenha)} onFocus={() => setErroConfirmarSenha(false)}
             />
-            <Pressable style={styles.button} onPress={() => cadastrarUsuario()}>
-                <Text style={styles.text}>Cadastrar</Text>
-            </Pressable>
+            <View style={{ margin: 15 }} />
+            <ButtonComponent texto='Cadastrar' onPress={() => tentarCadastrar()} />
+            <View style={{ margin: 15 }} />
         </Stack>
 
     )
 }
-
-const styles = StyleSheet.create({
-    button: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingVertical: 12,
-        paddingHorizontal: 32,
-        borderRadius: 4,
-        elevation: 3,
-        backgroundColor: 'black',
-        margin: 5,
-        width: "95%"
-    },
-    text: {
-        fontSize: 16,
-        lineHeight: 21,
-        fontWeight: 'bold',
-        letterSpacing: 0.25,
-        color: 'white',
-    },
-});
 
 export default CadastroScreen;
