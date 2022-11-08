@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Pressable, Stack, Text, TextInput } from "@react-native-material/core";
-import { RootStackParamList } from '../types/navegation';
+import { RootStackParamList } from '../../interfaces/navegation.interface';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Alert, StyleSheet } from 'react-native';
 import { useState } from 'react';
-import { registerUser } from '../controllers/user';
+import { cadastrarUsuarioAuthFirestore } from '../../controllers/usuario.controller';
 
 type CadastroScreenProps = NativeStackScreenProps<RootStackParamList, "Cadastro">;
 
@@ -27,7 +27,7 @@ const CadastroScreen: React.FC<CadastroScreenProps> = (props) => {
                 [{ text: "OK" }]
             );
         }else{
-            const foiRegistrado = await registerUser(email, senha);
+            const foiRegistrado = await cadastrarUsuarioAuthFirestore(email, senha);
             if(foiRegistrado){
                 Alert.alert(
                     "Cadastro realizado com sucesso!",

@@ -1,11 +1,11 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { View, Button, Pressable, Text, StyleSheet } from 'react-native';
-import { RootStackParamList } from '../types/navegation';
+import { RootStackParamList } from '../../interfaces/navegation.interface';
 
-type MainScreenProps = NativeStackScreenProps<RootStackParamList, "Main">
+type MenuScreenProps = NativeStackScreenProps<RootStackParamList, "Menu">
 
-const MainScreen: React.FC<MainScreenProps> = (props) => {
+const MenuScreen: React.FC<MenuScreenProps> = (props) => {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Pressable style={styles.button} onPress={() => props.navigation.push("Cadastro")}>
@@ -20,7 +20,7 @@ const MainScreen: React.FC<MainScreenProps> = (props) => {
         <Text style={styles.text}>Adicionar Barbearia</Text>
       </Pressable>
 
-      <Pressable style={styles.button} onPress={() => props.navigation.push("Home")}>
+      <Pressable style={styles.button} onPress={() => props.navigation.push("Entrar")}>
         <Text style={styles.text}>Sair</Text>
       </Pressable>
     </View>
@@ -48,4 +48,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MainScreen;
+export default MenuScreen;

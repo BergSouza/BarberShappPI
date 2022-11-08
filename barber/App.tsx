@@ -1,27 +1,30 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, Theme } from '@react-navigation/native';
 import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { RootStackParamList } from './src/types/navegation';
+import { RootStackParamList } from './src/interfaces/navegation.interface';
 
-import CadastroScreen from './src/pages/Cadastro';
-import LoginScreen from './src/pages/Login';
-import HomeScreen from './src';
-import MainScreen from './src/pages/Main';
-import AdicionarBarbeariaScreen from './src/pages/AdicionarBarbearia';
+import CadastroScreen from './src/pages/cliente/Cadastro';
+import AdicionarBarbeariaScreen from './src/pages/barbeiro/AdicionarBarbearia';
+import EntrarScreen from './src/pages/cliente/Entrar';
+import MenuScreen from './src/pages/cliente/Menu';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+const screenOptions = {
+  headerStyle: { backgroundColor: 'black' },
+  headerTintColor: 'white'
+}
+
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name='Home' component={HomeScreen} />
-        <Stack.Screen name='Login' component={LoginScreen} />
-        <Stack.Screen name='Cadastro' component={CadastroScreen} />
-        <Stack.Screen name='Main' component={MainScreen} />
+    <NavigationContainer >
+      <Stack.Navigator screenOptions={screenOptions} >
+        <Stack.Screen name='Entrar' component={EntrarScreen} options={{ headerShown: false }} />
+        <Stack.Screen name='Cadastro' component={CadastroScreen}/>
+        <Stack.Screen name='Menu' component={MenuScreen} options={{ headerShown: false }}/>
         <Stack.Screen name='AdicionarBarbearia' component={AdicionarBarbeariaScreen} />
       </Stack.Navigator>
-    </NavigationContainer>
+    </NavigationContainer >
   );
 };
 

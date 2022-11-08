@@ -1,11 +1,9 @@
 import * as React from 'react';
 import { Pressable, Stack, Text, TextInput } from "@react-native-material/core";
-import { RootStackParamList } from '../types/navegation';
+import { RootStackParamList } from '../../interfaces/navegation.interface';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Alert, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
-import { registerUser } from '../controllers/user';
-import { Barbearia } from '../interfaces/barbearia.interface';
 import {MediaType, launchImageLibrary} from 'react-native-image-picker';
 
 type AdicionarBarbeariaProps = NativeStackScreenProps<RootStackParamList, "AdicionarBarbearia">;
