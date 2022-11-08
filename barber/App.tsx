@@ -7,6 +7,7 @@ import CadastroScreen from './src/pages/cliente/Cadastro';
 import AdicionarBarbeariaScreen from './src/pages/barbeiro/AdicionarBarbearia';
 import EntrarScreen from './src/pages/cliente/Entrar';
 import MenuScreen from './src/pages/cliente/Menu';
+import AgendamentoScreen from './src/pages/cliente/Agendamento';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -23,6 +24,7 @@ const App = () => {
         <Stack.Screen name='Cadastro' component={CadastroScreen}/>
         <Stack.Screen name='Menu' component={MenuScreen} options={{ headerShown: false }}/>
         <Stack.Screen name='AdicionarBarbearia' component={AdicionarBarbeariaScreen} />
+        <Stack.Screen name='Agendamento' component={AgendamentoScreen} />
       </Stack.Navigator>
     </NavigationContainer >
   );

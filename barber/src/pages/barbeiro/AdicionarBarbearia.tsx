@@ -3,11 +3,13 @@ import { RootStackParamList } from '../../interfaces/navegation.interface';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useState } from 'react';
-import { MediaType, launchImageLibrary } from 'react-native-image-picker';
 import { Stack } from '@react-native-material/core';
 import ButtonComponent from '../../components/Button';
 import InputComponent from '../../components/Input';
 import ChooseImageComponent from '../../components/ChooseImage';
+import { criarBarbearia } from '../../controllers/barbearia.controller';
+import { Barbearia } from '../../interfaces/barbearia.interface';
+import { lerIdUsuarioAsyncStorage } from '../../controllers/usuario.controller';
 
 type AdicionarBarbeariaProps = NativeStackScreenProps<RootStackParamList, "AdicionarBarbearia">;
 
@@ -19,21 +21,48 @@ const AdicionarBarbeariaScreen: React.FC<AdicionarBarbeariaProps> = (props) => {
     const [erroEndereco, setErroEndereco] = useState(false);
     const [erroCNPJ, setErroCNPJ] = useState(false);
 
-    const tentarCadastrarBarbearia = () => {
-        if (cnpj || endereco) {
-            Alert.alert(
-                "Preencha todos os campos!",
-                "Confira se todos os campos estão preenchidos",
-                [{ text: "OK" }]
-            );
+    const tentarCadastrarBarbearia = async () => {
+        if (!cnpj || !endereco) {
+            !cnpj ? setErroCNPJ(true) : null;
+            return;
         }
+        const idUsuario = await lerIdUsuarioAsyncStorage();
+
+        if (idUsuario) {
+            const barbearia: Barbearia = {
+                id: '',
+                pertence: idUsuario,
+                cnpj,
+                foto: '',
+                endereco,
+                ids_barbeiros: []
+            }
+
+            criarBarbearia(barbearia, fotoCaminho).then((idBarbearia) => {
+                Alert.alert(
+                    "Barbearia cadastrada com sucesso!",
+                    "",
+                    [{ text: "OK" }]
+                );
+
+                props.navigation.push("Menu")
+            }).catch((error) => {
+                Alert.alert(
+                    "Erro ao cadastrar barbearia!",
+                    error,
+                    [{ text: "OK" }]
+                );
+            });
+        }
+
+
     }
 
     return (
         <Stack spacing={2} style={{ margin: 16, justifyContent: "center", position: "absolute", top: 0, bottom: 0, left: 0, right: 0 }}>
 
             <View style={{ justifyContent: 'center', alignItems: "center", borderWidth: 1, borderColor: "black" }}>
-                <Image style={{ width: 150, height: 200 }} source={fotoCaminho? {uri: fotoCaminho}: require('../../imagens/sem_foto.jpg')} />
+                <Image style={{ width: 150, height: 200 }} source={fotoCaminho ? { uri: fotoCaminho } : require('../../imagens/sem_foto.jpg')} />
             </View>
             <View style={{ margin: 30 }} />
             <ChooseImageComponent setFotoUri={setFotoCaminho}></ChooseImageComponent>

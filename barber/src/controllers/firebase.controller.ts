@@ -6,7 +6,7 @@ export const criarFirestore = async <T>(colection: string, value: T) => {
 }
 
 export const atualizarFirestore = async <T>(colection: string, doc: string, value: T) => {
-    await db.collection(colection).doc(doc).set({ ...value as any });
+    await db.collection(colection).doc(doc).set({ ...value as any }, {merge: true});
     return true;
 }
 

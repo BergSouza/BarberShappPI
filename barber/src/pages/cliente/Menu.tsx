@@ -8,12 +8,8 @@ type MenuScreenProps = NativeStackScreenProps<RootStackParamList, "Menu">
 const MenuScreen: React.FC<MenuScreenProps> = (props) => {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Pressable style={styles.button} onPress={() => props.navigation.push("Cadastro")}>
+      <Pressable style={styles.button} onPress={() => props.navigation.push("Agendamento")}>
         <Text style={styles.text}>Agendar Atendimento</Text>
-      </Pressable>
-
-      <Pressable style={styles.button} onPress={() => props.navigation.push("Cadastro")}>
-        <Text style={styles.text}>Minha Agenda</Text>
       </Pressable>
 
       <Pressable style={styles.button} onPress={() => props.navigation.push("AdicionarBarbearia")}>
