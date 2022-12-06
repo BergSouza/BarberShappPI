@@ -73,13 +73,13 @@ const AgendamentoScreen: React.FC<AgendamentoScreenProps> = (props) => {
 
             <View style={{ margin: 50 }} />
             <InputComponent placeholder="Barbeiro" temErro={erroBarbeiro} textoErro={'Erro no campo barbeiro'}
-                onChangeText={newBarbeiro => setBarbeiro(newBarbeiro)} onFocus={() => setErroBarbeiro(false)}
+                setTemErro={setErroBarbeiro} setTexto={setBarbeiro} texto={barbeiro}
             />
             <InputComponent placeholder="Data" temErro={erroData} textoErro={'Erro no campo data'}
-                onChangeText={newData => setData(newData)} onFocus={() => setErroData(false)}
+                setTemErro={setErroData} setTexto={setData} texto={data}
             />
             <InputComponent placeholder="Horario" temErro={erroHorario} textoErro={'Erro no campo horario'}
-                onChangeText={newHorario => setHorario(newHorario)} onFocus={() => setErroHorario(false)}
+                setTemErro={setErroHorario} setTexto={setHorario} texto={horario}
             />
             <View style={{ margin: 15 }} />
             <ButtonComponent texto='Agendar' onPress={() => tentarAgendar()} />

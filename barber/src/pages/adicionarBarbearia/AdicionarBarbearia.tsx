@@ -16,10 +16,12 @@ type AdicionarBarbeariaProps = NativeStackScreenProps<SideBarStack, "AdicionarBa
 const AdicionarBarbeariaScreen: React.FC<AdicionarBarbeariaProps> = (props) => {
     const [endereco, setEndereco] = useState<string>('');
     const [cnpj, setCnpj] = useState<string>('');
+    const [nome, setNome] = useState<string>('');
     const [fotoCaminho, setFotoCaminho] = useState<undefined | string>();
 
     const [erroEndereco, setErroEndereco] = useState(false);
     const [erroCNPJ, setErroCNPJ] = useState(false);
+    const [erroNome, setErroNome] = useState(false);
 
     const tentarCadastrarBarbearia = async () => {
         if (!cnpj || !endereco) {
@@ -35,6 +37,7 @@ const AdicionarBarbeariaScreen: React.FC<AdicionarBarbeariaProps> = (props) => {
                 cnpj,
                 foto: '',
                 endereco,
+                nome,
                 ids_barbeiros: []
             }
 
@@ -61,19 +64,21 @@ const AdicionarBarbeariaScreen: React.FC<AdicionarBarbeariaProps> = (props) => {
     return (
         <Stack spacing={2} style={{ margin: 16, justifyContent: "center", position: "absolute", top: 0, bottom: 0, left: 0, right: 0 }}>
 
-            <View style={{ justifyContent: 'center', alignItems: "center", borderWidth: 1, borderColor: "black" }}>
-                <Image style={{ width: 150, height: 200 }} source={fotoCaminho ? { uri: fotoCaminho } : require('../../imagens/sem_foto.jpg')} />
+            <View style={{ justifyContent: 'center', alignItems: "center" }}>
+                <Image style={{ width: "100%", height: 200, borderRadius: 5 }} source={fotoCaminho ? { uri: fotoCaminho } : require('../../imagens/sem_foto.jpg')} />
             </View>
-            <View style={{ margin: 30 }} />
+            <View style={{ margin: 5 }} />
             <ChooseImageComponent setFotoUri={setFotoCaminho}></ChooseImageComponent>
             <View style={{ margin: 15 }} />
 
-            <InputComponent placeholder="Endereço" temErro={erroEndereco} textoErro={'Erro no campo endereço'}
-                onChangeText={newEndereco => setEndereco(newEndereco)} onFocus={() => setErroEndereco(false)} />
+            <InputComponent placeholder="Digite o nome da barbearia" temErro={erroNome} textoErro={'Erro no campo nome'}
+                setTexto={setNome} setTemErro={setErroNome} texto={nome} />
 
-            <InputComponent placeholder="CNPJ" temErro={erroCNPJ} textoErro={'Erro no campo CNPJ'}
-                onChangeText={newCNPJ => setCnpj(newCNPJ)} onFocus={() => setErroCNPJ(false)}
-            />
+            <InputComponent placeholder="Digite o endereço da barbearia" temErro={erroEndereco} textoErro={'Erro no campo endereço'}
+                setTexto={setEndereco} setTemErro={setErroEndereco} texto={endereco} />
+
+            <InputComponent placeholder="Digite o CNPJ da barbearia" temErro={erroCNPJ} textoErro={'Erro no campo CNPJ'}
+                setTexto={setCnpj} setTemErro={setErroCNPJ} texto={cnpj} />
             <View style={{ margin: 15 }} />
             <ButtonComponent texto='Cadastrar Barbearia' onPress={() => tentarCadastrarBarbearia()} />
             <View style={{ margin: 15 }} />

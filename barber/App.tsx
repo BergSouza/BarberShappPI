@@ -1,5 +1,5 @@
 // import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -16,8 +16,16 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const screenOptions = {
   headerStyle: { backgroundColor: 'black' },
-  headerTintColor: 'white'
+  headerTintColor: 'white',
 }
+
+const navTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: 'white',
+  },
+};
 
 const App = () => {
   const [estaLogado, setEstaLogado] = useState<boolean | null>(null);
@@ -25,7 +33,6 @@ const App = () => {
   React.useEffect(() => {
     lerIdUsuarioAsyncStorage().then((id) => {
       if (id && id !== null) {
-        console.log(true)
         setEstaLogado(true);
       } else {
         setEstaLogado(false);
@@ -45,9 +52,8 @@ const App = () => {
   }
 
   return (
-    <NavigationContainer>
-        <Stack.Navigator screenOptions={screenOptions}  >
-
+    <NavigationContainer theme={navTheme} >
+        <Stack.Navigator screenOptions={screenOptions}>
           {!estaLogado ?
             <>
               <Stack.Screen name='Entrar' component={EntrarScreen} options={{ headerShown: false }} />

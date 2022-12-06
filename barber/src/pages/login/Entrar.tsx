@@ -46,10 +46,10 @@ const EntrarScreen: React.FC<EntrarScreenProps> = (props) => {
 
       <View style={{ margin: 50 }} />
       <InputComponent placeholder="Digite seu email" temErro={erroEmail} textoErro={'Erro no campo email'}
-        onChangeText={newEmail => setEmail(newEmail)} onFocus={() => setErroEmail(false)}
+        setTexto={setEmail} setTemErro={setErroEmail} texto={email}
       />
       <InputComponent placeholder="Digite sua senha" temErro={erroSenha} textoErro={'Erro no campo senha'} secureTextEntry={true}
-        onChangeText={newSenha => setSenha(newSenha)} onFocus={() => setErroSenha(false)}
+        setTexto={setSenha} setTemErro={setErroSenha} texto={senha}
       />
       <View style={{ margin: 15 }} />
       <ButtonComponent texto='Entrar' onPress={() => tentarEntrar()} />

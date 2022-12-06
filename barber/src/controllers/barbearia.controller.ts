@@ -1,6 +1,6 @@
 import { Barbearia } from "../interfaces/barbearia.interface";
-import { atualizarFirestore, criarFirestore, deletarFirestore, lerFirestore } from "./firebase.controller";
-import { criarArquivoStorage } from "./storage.controller";
+import { atualizarFirestore, criarFirestore, deletarFirestore, lerColecaoFirestore, lerFirestore } from "./firebase.controller";
+import { criarArquivoStorage, lerArquivoStorage } from "./storage.controller";
 
 const COLECAO_BARBEARIA = "barbearias";
 const PASTA_STORAGE = "foto_barbearia";
@@ -32,6 +32,17 @@ export const deletarBarbearia = (id: string) => {
 
 export const lerBarbearia = (id: string) => {
     return lerFirestore<Barbearia>(COLECAO_BARBEARIA, id);
+}
+
+export const lerBarbearias = async () => {
+    const barberarias = await lerColecaoFirestore<Barbearia>(COLECAO_BARBEARIA);
+    const barbeariasComFoto = await Promise.all(barberarias.map(async (barbearia) => {
+        if (barbearia.foto) {
+            barbearia.link_foto = await lerArquivoStorage(barbearia.foto);
+        }
+        return barbearia
+    }));
+    return barbeariasComFoto;
 }
 
 

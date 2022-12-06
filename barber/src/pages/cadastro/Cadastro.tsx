@@ -65,13 +65,13 @@ const CadastroScreen: React.FC<CadastroScreenProps> = (props) => {
 
             <View style={{ margin: 50 }} />
             <InputComponent placeholder="Email" temErro={erroEmail} textoErro={'Erro no campo email'}
-                onChangeText={newEmail => setEmail(newEmail)} onFocus={() => setErroEmail(false)}
+                setTexto={setEmail} setTemErro={setErroEmail} texto={email}
             />
             <InputComponent placeholder="Senha" temErro={erroSenha} textoErro={senha !== confirmarSenha ? 'Senhas não são iguais' : 'Erro no campo senha'} secureTextEntry={true}
-                onChangeText={newSenha => setSenha(newSenha)} onFocus={() => setErroSenha(false)}
+                 setTexto={setSenha} setTemErro={setErroSenha} texto={senha}
             />
             <InputComponent placeholder="Confirmar Senha" temErro={erroConfirmarSenha} textoErro={senha !== confirmarSenha ? 'Senhas não são iguais' : 'Erro no campo senha'} secureTextEntry={true}
-                onChangeText={newConfirmarSenha => setConfirmarSenha(newConfirmarSenha)} onFocus={() => setErroConfirmarSenha(false)}
+                 setTexto={setConfirmarSenha} setTemErro={setErroConfirmarSenha} texto={confirmarSenha}
             />
             <View style={{ margin: 15 }} />
             <ButtonComponent texto='Cadastrar' onPress={() => tentarCadastrar()} />
