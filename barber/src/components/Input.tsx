@@ -1,15 +1,17 @@
 import { Stack } from '@react-native-material/core';
 import * as React from 'react';
 import { StyleSheet, Text, TextInput, TextInputProps } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export interface InputComponentProps extends TextInputProps {
-    temErro: boolean;
-    textoErro: string;
+    temErro?: boolean;
+    textoErro?: string;
+    borderRadius?: boolean;
 }
 const InputComponent: React.FC<InputComponentProps> = (props) => {
     return (
         <Stack spacing={1} style={styles.stack}>
-            <TextInput {...props} style={props.temErro ? styles.inputErro : styles.input}/>
+            <TextInput {...props} style={props.temErro ? { ...styles.inputErro } : { ...styles.input }} placeholderTextColor="gray" />
             {props.temErro ? <Text style={styles.text} >{props.textoErro}</Text> : null}
         </Stack>
     )
@@ -24,8 +26,10 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 10,
         color: 'black',
-        fontSize: 20,
-        width: "100%"
+        fontSize: 15,
+        width: "100%",
+        // borderRadius: 80,
+        // fontStyle: ""
     },
     inputErro: {
         height: 50,
@@ -33,15 +37,19 @@ const styles = StyleSheet.create({
         borderColor: 'red',
         color: 'red',
         padding: 10,
-        fontSize: 20,
-        width: "100%"
-
+        fontSize: 15,
+        width: "100%",
+        // borderRadius: 80 
     },
     text: {
         borderColor: 'red',
         borderRadius: 8,
         padding: 0,
         color: 'red'
+    },
+
+    searchIcon: {
+        padding: 10,
     },
 });
 

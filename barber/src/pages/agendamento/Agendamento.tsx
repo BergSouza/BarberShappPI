@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Pressable, Stack, Text, TextInput } from "@react-native-material/core";
-import { RootStackParamList } from '../../interfaces/navegation.interface';
+import { RootStackParamList, SideBarStack } from '../../interfaces/navegation.interface';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Alert, Image, StyleSheet, View } from 'react-native';
 import { useState } from 'react';
@@ -10,7 +10,7 @@ import ButtonComponent from '../../components/Button';
 import { Agendamento } from '../../interfaces/agendamento.interface';
 import { criarAgendamento } from '../../controllers/agendamento.controller';
 
-type AgendamentoScreenProps = NativeStackScreenProps<RootStackParamList, "Agendamento">;
+type AgendamentoScreenProps = NativeStackScreenProps<SideBarStack, "Agendamento">;
 
 const AgendamentoScreen: React.FC<AgendamentoScreenProps> = (props) => {
     const [barbeiro, setBarbeiro] = useState('');
@@ -47,7 +47,7 @@ const AgendamentoScreen: React.FC<AgendamentoScreenProps> = (props) => {
                         [{ text: "OK" }]
                     );
 
-                    props.navigation.push("Menu")
+                    //props.navigation.push("Menu")
                 } else {
                     Alert.alert(
                         "Erro inesperado ao agendar!", "Verifique suas informações",

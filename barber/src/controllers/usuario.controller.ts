@@ -2,6 +2,7 @@ import { authFire } from "../firebase.config";
 import { Usuario } from "../interfaces/usuario.interface";
 import { atualizarFirestore, lerFirestore } from "./firebase.controller";
 import { criarAsyncStorage, deletarAsyncStorage, lerAsyncStorage } from "./asyncStorage.controller";
+import { auth, login, signout } from "../reducers/AuthReducer";
 
 const COLECAO_USUARIOS = "usuarios";
 const ASYNC_ID_USUARIO = "ID_USUARIO";
@@ -38,9 +39,10 @@ export const entrar = async (email: string, senha: string) => {
         const credenciais = await authFire.signInWithEmailAndPassword(email, senha);
         const usuarioFirebase = credenciais.user;
         if (usuarioFirebase !== null) {
+            auth.dispatch(login());
             return await criarIdUsuarioAsyncStorage(usuarioFirebase.uid);
         }
-        return true;
+        return false;
 
     } catch (error) {
         return false;
@@ -50,6 +52,7 @@ export const entrar = async (email: string, senha: string) => {
 export const deslogar = async () => {
     await authFire.signOut();
     await deletarIdUsuarioAsyncStorage();
+    auth.dispatch(signout());
     return true;
 }
 

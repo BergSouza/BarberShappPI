@@ -25,7 +25,7 @@ const EntrarScreen: React.FC<EntrarScreenProps> = (props) => {
 
     entrar(email, senha).then((logou) => {
       if(logou){
-        props.navigation.push("Menu");
+        // props.navigation.push("Menu");
       }else{
         Alert.alert(
           "Ocorreu um erro ao tentar logar!", "Verifique se seu e-mail e senha estão corretos",
@@ -45,17 +45,17 @@ const EntrarScreen: React.FC<EntrarScreenProps> = (props) => {
       </View>
 
       <View style={{ margin: 50 }} />
-      <InputComponent placeholder="Email" temErro={erroEmail} textoErro={'Erro no campo email'}
+      <InputComponent placeholder="Digite seu email" temErro={erroEmail} textoErro={'Erro no campo email'}
         onChangeText={newEmail => setEmail(newEmail)} onFocus={() => setErroEmail(false)}
       />
-      <InputComponent placeholder="Senha" temErro={erroSenha} textoErro={'Erro no campo senha'} secureTextEntry={true}
+      <InputComponent placeholder="Digite sua senha" temErro={erroSenha} textoErro={'Erro no campo senha'} secureTextEntry={true}
         onChangeText={newSenha => setSenha(newSenha)} onFocus={() => setErroSenha(false)}
       />
       <View style={{ margin: 15 }} />
       <ButtonComponent texto='Entrar' onPress={() => tentarEntrar()} />
-      <View style={{ margin: 15 }} />
+      <View style={{ margin: 25 }} />
       <Pressable onPress={() => { props.navigation.push("Cadastro"); }} style={{ justifyContent: 'center', alignItems: "center" }}>
-        <Text style={{ color: "blue", textDecorationLine: 'underline', fontSize: 20 }}>Não possui conta?</Text>
+        <Text style={{ color: "blue", textDecorationLine: 'underline', fontSize: 20 }}>Cadastre-se</Text>
       </Pressable>
     </Stack>
 

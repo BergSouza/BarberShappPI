@@ -1,7 +1,7 @@
 apply plugin: "com.android.application"
 
-import com.android.build.OutputFile
-import org.apache.tools.ant.taskdefs.condition.Os
+// import com.android.build.OutputFile
+// import org.apache.tools.ant.taskdefs.condition.Os
 
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
@@ -277,6 +277,8 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    compile project(':react-native-vector-icons')
 }
 
 if (isNewArchitectureEnabled()) {
@@ -311,3 +313,5 @@ def isNewArchitectureEnabled() {
     // - Set an environment variable `ORG_GRADLE_PROJECT_newArchEnabled=true`
     return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
 }
+
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
