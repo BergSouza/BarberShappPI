@@ -50,6 +50,7 @@ export const entrar = async (email: string, senha: string) => {
         if (usuarioFirebase !== null) {
             auth.dispatch(login());
             const usuario = await lerUsuarioFirestore(usuarioFirebase.uid);
+            console.log(usuario)
             usuarioReducer.dispatch(update(usuario));
             return await criarIdUsuarioAsyncStorage(usuarioFirebase.uid);
         }

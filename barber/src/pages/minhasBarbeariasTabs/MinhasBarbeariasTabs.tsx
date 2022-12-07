@@ -14,8 +14,8 @@ import { atualizarUsuarioFirestore } from '../../controllers/usuario.controller'
 import { Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import AdicionarBarbeariaScreen from './AdicionarBarbearia';
-import BarbeirosScreen from './Barbeiros';
 import NotificacoesScreen from './Notificacoes';
+import BarbeirosScreen from './Barbeiros';
 
 const Tab = createBottomTabNavigator<Navegacao>();
 
@@ -89,30 +89,6 @@ const MinhasBarbeariasTabsScreen: React.FC<MinhasBarbeariasTabsProps> = (props) 
                     headerShown: false, tabBarLabel: 'Barbearias',
                     tabBarIcon: ({ color, size }) => (
                         <Icon name="scissors" color={color} size={size} />
-                    )
-                }}
-            />
-            <Tab.Screen name="AdicionarBarbearia" component={AdicionarBarbeariaScreen}
-                options={{
-                    headerShown: false, tabBarLabel: 'Adicionar',
-                    tabBarIcon: ({ color, size }) => (
-                        <Icon name="plus" color={color} size={size} />
-                    )
-                }}
-            />
-            <Tab.Screen name="Barbeiros" component={BarbeirosScreen}
-                options={{
-                    headerShown: false,
-                    tabBarIcon: ({ color, size }) => (
-                        <Icon name="users" color={color} size={size} />
-                    )
-                }}
-            />
-            <Tab.Screen name="Notificacoes" component={NotificacoesScreen}
-                options={{
-                    headerShown: false,
-                    tabBarIcon: ({ color, size }) => (
-                        <Icon name="bell" color={color} size={size} />
                     )
                 }}
             />

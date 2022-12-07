@@ -19,5 +19,7 @@ export type Navegacao = {
     HistoricoAgendamentoTabs: undefined
     AgendamentosConcluidos: undefined;
     AgendamentosPendentes: undefined;
+    BerbeiroTabs: undefined;
+    Agendamentos: undefined;
 
 }

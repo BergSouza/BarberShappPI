@@ -27,6 +27,11 @@ export const lerAgendamentoPorUsuario = async (id_cliente: string) => {
     return procurarFirestore<Agendamento>(COLECAO_AGENDAMENTO, "id_cliente", "==", id_cliente);
 }
 
+export const lerAgendamentoPorBarbeiro = async (id_cliente: string) => {
+    return procurarFirestore<Agendamento>(COLECAO_AGENDAMENTO, "id_barbeiro", "==", id_cliente);
+}
+
+
 export const atualizarAgendamento = (id: string, agendamento: Agendamento) => {
     return atualizarFirestore<Agendamento>(COLECAO_AGENDAMENTO, id, agendamento);
 }

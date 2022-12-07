@@ -1,26 +1,24 @@
 import * as React from 'react';
 import { Navegacao } from '../../interfaces/navegacao.interface';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import { Linking, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { useState } from 'react';
-import { Barbearia } from '../../interfaces/barbearia.interface';
-import { Text } from '@react-native-material/core';
+import { Button, Text } from '@react-native-material/core';
 import InputComponent from '../../components/Input';
-import Card from '../../components/Card';
 import LoadingComponent from '../../components/Loading';
-import CardWithButtonComponent from '../../components/CardWithButton';
-import { lerAgendamento, lerAgendamentoPorUsuario } from '../../controllers/agendamento.controller';
 import { usuarioReducer } from '../../reducers/UsuarioReducer';
-import { Agendamento, AgendamentoRecebidoCliente } from '../../interfaces/agendamento.interface';
+import { Agendamento, AgendamentoRecebidoBarbeiro } from '../../interfaces/agendamento.interface';
 import { lerUsuarioFirestore } from '../../controllers/usuario.controller';
 import CardComponent from '../../components/Card';
 import { lerBarbearia } from '../../controllers/barbearia.controller';
+import { lerAgendamentoPorBarbeiro, lerAgendamentoPorUsuario } from '../../controllers/agendamento.controller';
+import ButtonComponent from '../../components/Button';
 
-type AgendamentosPendentesProps = NativeStackScreenProps<Navegacao, "AgendamentosPendentes">;
+type AgendamentosProps = NativeStackScreenProps<Navegacao, "Agendamentos">;
 
-const AgendamentosPendentesScreen: React.FC<AgendamentosPendentesProps> = (props) => {
-    const [agendamentos, setAgendamentos] = useState<AgendamentoRecebidoCliente[]>([]);
-    const [agendamentosFiltrados, setAgendamentosFiltrados] = useState<AgendamentoRecebidoCliente[]>([]);
+const AgendamentosScreen: React.FC<AgendamentosProps> = (props) => {
+    const [agendamentos, setAgendamentos] = useState<AgendamentoRecebidoBarbeiro[]>([]);
+    const [agendamentosFiltrados, setAgendamentosFiltrados] = useState<AgendamentoRecebidoBarbeiro[]>([]);
     const [carregando, setCarregando] = useState<boolean>(false);
 
     const [filtro, setFiltro] = useState<string>("");
@@ -30,14 +28,14 @@ const AgendamentosPendentesScreen: React.FC<AgendamentosPendentesProps> = (props
 
     React.useEffect(() => {
         setCarregando(true);
-        lerAgendamentoPorUsuario(usuarioReducer.getState().value.id).then(async (agends) => {
-            const novoAgendamentos: AgendamentoRecebidoCliente[] = await Promise.all(agends.map(async (a) => {
-                const barbeiro = await lerUsuarioFirestore(a.id_barbeiro);
-                const barbearia = await lerBarbearia(a.id_barbearia);
+        lerAgendamentoPorBarbeiro(usuarioReducer.getState().value.id).then(async (agends) => {
+            const novoAgendamentos: AgendamentoRecebidoBarbeiro[] = await Promise.all(agends.map(async (a) => {
+                const cliente = await lerUsuarioFirestore(a.id_cliente);
                 return {
-                    ...a, nome_barbeiro: barbeiro.nome,
-                    foto_barbearia: barbearia.link_foto ? barbearia.link_foto : '',
-                    nome_barbearia: barbearia.nome
+                    ...a,
+                    foto_cliente: cliente.link_foto_perfil ? cliente.link_foto_perfil : '',
+                    nome_cliente: cliente.nome,
+                    telefone: cliente.telefone
                 }
             }));
             const novoAgendamentos2 = novoAgendamentos.filter((a) => {
@@ -78,19 +76,23 @@ const AgendamentosPendentesScreen: React.FC<AgendamentosPendentesProps> = (props
                 {agendamentosFiltrados && agendamentosFiltrados.length > 0 ?
                     agendamentosFiltrados.map((a, i) => (
                         <>
-                            <CardComponent key={"ag-filter-" + i} fotoCaminho={a.foto_barbearia}
-                                titulo={"Barbearia: " + a.nome_barbearia + ", Data: " + a.data + ", Horario: " + a.horario}
-                                descricao={"Barbeiro: " + a.nome_barbeiro + ", Status: Pendente"}
+                            <CardComponent key={"ag-filter-" + i} fotoCaminho={a.foto_cliente}
+                                titulo={"Data: " + a.data + ", Horario: " + a.horario}
+                                descricao={"Cliente: " + a.nome_cliente + ", Status: Pendente"}
                             />
+                            {!a.telefone ? null :
+                                <ButtonComponent texto='Mandar Mensagem' onPress={() => Linking.openURL('whatsapp://send?text=hello&phone=' + a.telefone)} />}
                         </>
                     ))
                     :
                     agendamentos.map((a, i) => (
                         <>
-                            <CardComponent key={"ag-filter-" + i} fotoCaminho={a.foto_barbearia}
-                                titulo={"Barbearia: " + a.nome_barbearia + ", Data: " + a.data + ", Horario: " + a.horario}
-                                descricao={"Barbeiro: " + a.nome_barbeiro + ", Status: Pendente"}
+                            <CardComponent key={"ag-filter-" + i} fotoCaminho={a.foto_cliente}
+                                titulo={"Data: " + a.data + ", Horario: " + a.horario}
+                                descricao={"Cliente: " + a.nome_cliente + ", Status: Pendente"}
                             />
+                            {!a.telefone ? null :
+                                <ButtonComponent texto='Mandar Mensagem' onPress={() => Linking.openURL('whatsapp://send?text=hello&phone=' + a.telefone)} />}
                         </>
                     ))
                 }
@@ -110,4 +112,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default AgendamentosPendentesScreen;
+export default AgendamentosScreen;

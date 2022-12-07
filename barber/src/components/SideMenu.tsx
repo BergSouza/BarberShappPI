@@ -13,6 +13,7 @@ import MinhasBarbeariasTabsScreen from '../pages/minhasBarbeariasTabs/MinhasBarb
 import { Navegacao } from '../interfaces/navegacao.interface';
 import MinhaContaScreen from '../pages/minhaConta/MinhaConta';
 import HistoricoAgendamentoTabsScreen from '../pages/historicoAgendamentoTabs/HistoricoAgendamentoTabs';
+import BarbeiroTabsScreen from '../pages/barbeiroTabs/BarbeiroTabs';
 
 const Drawer = createDrawerNavigator<Navegacao>();
 
@@ -66,7 +67,7 @@ const SideMenuScreen: React.FC<SideMenuScreenProps> = (props) => {
         <Drawer.Screen name='Barbearias' component={BarbeariasScreen} options={{ title: 'Todas as Barbearias' }}  />
         <Drawer.Screen name='HistoricoAgendamentoTabs' component={HistoricoAgendamentoTabsScreen} options={{ title: 'Historico Agendamentos' }} />
         <Drawer.Screen name='MinhasBarbeariasTabs' component={MinhasBarbeariasTabsScreen} options={{ title: !usuario.eDonoBarbearia ? 'Sou Dono Barbearia?' : 'Gerenciamento Barbearias' }} />
-        <Drawer.Screen name='BarbeariaEmpregadora' component={BarbeariaEmpregadoraScreen} options={{ title: !usuario.eBarbeiro ? 'Sou Barbeiro?' : 'Barbearia Empregadora' }} />
+        <Drawer.Screen name='BerbeiroTabs' component={BarbeiroTabsScreen} options={{ title: !usuario.eBarbeiro ? 'Sou Barbeiro?' : 'Barbearia Empregadora' }} />
       </Drawer.Navigator>
   );
 };

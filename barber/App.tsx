@@ -12,6 +12,7 @@ import { lerIdUsuarioAsyncStorage, lerUsuarioFirestore } from './src/controllers
 import SideMenuScreen from './src/components/SideMenu';
 import { update, usuarioReducer } from './src/reducers/UsuarioReducer';
 import BarbeariasTabsScreen from './src/pages/barbeariaTabs/BarbeariasTabs';
+import AdicionarBarbeariaScreen from './src/pages/minhasBarbeariasTabs/AdicionarBarbearia';
 
 const Stack = createNativeStackNavigator<Navegacao>();
 
@@ -66,6 +67,7 @@ const App = () => {
           <>
             <Stack.Screen name='SideMenu' component={SideMenuScreen} options={{ headerShown: false }} />
             <Stack.Screen name='BarbeariasTabs' component={BarbeariasTabsScreen} options={{ title: "Barbearia"}} />
+            <Stack.Screen name='AdicionarBarbearia' component={AdicionarBarbeariaScreen} options={{ title: "Adicionar Barbearia"}} />
           </>
         }
       </Stack.Navigator>

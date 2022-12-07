@@ -15,3 +15,9 @@ export interface AgendamentoRecebidoCliente extends Agendamento{
     foto_barbearia: string;
     nome_barbearia: string;
 }
+
+export interface AgendamentoRecebidoBarbeiro extends Agendamento{
+    foto_cliente: string;
+    nome_cliente: string;
+    telefone: string;
+}

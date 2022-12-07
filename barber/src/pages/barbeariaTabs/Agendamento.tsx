@@ -75,8 +75,6 @@ const AgendamentoScreen: React.FC<AgendamentoScreenProps> = (props) => {
         const novoBarbeiros = await Promise.all(barbearia.ids_barbeiros.map(async (id) => {
             return await lerUsuarioFirestore(id);
         }));
-        novoBarbeiros.push(await lerUsuarioFirestore("Z381ru3t4ig8GhhCpfxFVTuX1Eg2"))
-        novoBarbeiros.push(await lerUsuarioFirestore("FMWs21ObBjgR6Vwcs8kVi9WW1SF3"))
 
         setBarbeiros(novoBarbeiros);
 
