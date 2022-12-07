@@ -2,19 +2,18 @@ import * as React from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Alert, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useState } from 'react';
-import { RootStackParamList } from '../../interfaces/navegation.interface';
+import { Navegacao } from '../../interfaces/navegacao.interface';
 import { entrar } from '../../controllers/usuario.controller';
 import InputComponent from '../../components/Input';
 import ButtonComponent from '../../components/Button';
 import { Stack } from '@react-native-material/core';
 
-type EntrarScreenProps = NativeStackScreenProps<RootStackParamList, "Entrar">;
+type EntrarScreenProps = NativeStackScreenProps<Navegacao, "Entrar">;
 const EntrarScreen: React.FC<EntrarScreenProps> = (props) => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [erroEmail, setErroEmail] = useState(false);
   const [erroSenha, setErroSenha] = useState(false);
-
 
   const tentarEntrar = () => {
     if (!email || !senha) {

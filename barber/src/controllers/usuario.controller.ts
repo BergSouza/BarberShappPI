@@ -3,9 +3,12 @@ import { Usuario } from "../interfaces/usuario.interface";
 import { atualizarFirestore, lerFirestore } from "./firebase.controller";
 import { criarAsyncStorage, deletarAsyncStorage, lerAsyncStorage } from "./asyncStorage.controller";
 import { auth, login, signout } from "../reducers/AuthReducer";
+import { update, usuarioReducer } from "../reducers/UsuarioReducer";
+import { criarArquivoStorage, lerArquivoStorage } from "./storage.controller";
 
 const COLECAO_USUARIOS = "usuarios";
 const ASYNC_ID_USUARIO = "ID_USUARIO";
+const PASTA_STORAGE = "foto_perfil";
 
 export const cadastrarUsuarioAuthFirestore = async (email: string, senha: string) => {
     try {
@@ -21,7 +24,10 @@ export const cadastrarUsuarioAuthFirestore = async (email: string, senha: string
                 foto_perfil: "",
                 eBarbeiro: false,
                 eDonoBarbearia: false,
-                agenda: []
+                barbearias: [],
+                agendamentos_cliente: [],
+                agendamentos_barbeiro: [],
+                trabalha_barbearia: ""
             }
 
             return await atualizarUsuarioFirestore(usuario);
@@ -40,9 +46,21 @@ export const entrar = async (email: string, senha: string) => {
         const usuarioFirebase = credenciais.user;
         if (usuarioFirebase !== null) {
             auth.dispatch(login());
+            const usuario = await lerUsuarioFirestore(usuarioFirebase.uid);
+            usuarioReducer.dispatch(update(usuario));
             return await criarIdUsuarioAsyncStorage(usuarioFirebase.uid);
         }
         return false;
+
+    } catch (error) {
+        return false;
+    }
+}
+
+export const atualizarSenha = async (email: string) => {
+    try {
+        const credenciais = await authFire.sendPasswordResetEmail(email);
+        return true;
 
     } catch (error) {
         return false;
@@ -68,12 +86,27 @@ export const lerIdUsuarioAsyncStorage = () => {
     return lerAsyncStorage(ASYNC_ID_USUARIO);
 }
 
-export const atualizarUsuarioFirestore = (usuario: Usuario) => {
-    return atualizarFirestore<Usuario>(COLECAO_USUARIOS, usuario.id, usuario);
+export const atualizarUsuarioFirestore = async (usuario: Usuario, fotoUri?: string) => {
+
+    if (fotoUri) {
+        const response = await fetch(fotoUri);
+        const arquivo = await response.blob();
+        usuario.foto_perfil = PASTA_STORAGE + "/" + usuario.id;
+        await criarArquivoStorage(usuario.foto_perfil, arquivo);
+    }
+
+    usuario.link_foto_perfil = await lerArquivoStorage(usuario.foto_perfil);
+    await atualizarFirestore<Usuario>(COLECAO_USUARIOS, usuario.id, usuario);
+    usuarioReducer.dispatch(update(usuario));   
+    return true;
 }
 
-export const lerUsuarioFirestore = (usuario: Usuario) => {
-    return lerFirestore<Usuario>(COLECAO_USUARIOS, usuario.id);
+export const lerUsuarioFirestore = async (id: string) => {
+    let usuario = await lerFirestore<Usuario>(COLECAO_USUARIOS, id);
+    if (usuario.foto_perfil) {
+        usuario.link_foto_perfil = await lerArquivoStorage(usuario.foto_perfil);
+    }
+    return usuario;
 }
 
 

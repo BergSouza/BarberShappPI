@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { RootStackParamList, SideBarStack } from '../../interfaces/navegation.interface';
+import { Navegacao } from '../../interfaces/navegacao.interface';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useState } from 'react';
@@ -11,7 +11,7 @@ import { criarBarbearia } from '../../controllers/barbearia.controller';
 import { Barbearia } from '../../interfaces/barbearia.interface';
 import { lerIdUsuarioAsyncStorage } from '../../controllers/usuario.controller';
 
-type AdicionarBarbeariaProps = NativeStackScreenProps<SideBarStack, "AdicionarBarbearia">;
+type AdicionarBarbeariaProps = NativeStackScreenProps<Navegacao, "AdicionarBarbearia">;
 
 const AdicionarBarbeariaScreen: React.FC<AdicionarBarbeariaProps> = (props) => {
     const [endereco, setEndereco] = useState<string>('');

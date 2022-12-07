@@ -1,18 +1,20 @@
 import * as React from 'react';
 import { Pressable, Stack, Text, TextInput } from "@react-native-material/core";
-import { RootStackParamList, SideBarStack } from '../../interfaces/navegation.interface';
+import { Navegacao } from '../../interfaces/navegacao.interface';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Alert, Image, StyleSheet, View } from 'react-native';
 import { useState } from 'react';
-import { cadastrarUsuarioAuthFirestore, lerIdUsuarioAsyncStorage } from '../../controllers/usuario.controller';
+import { lerIdUsuarioAsyncStorage } from '../../controllers/usuario.controller';
 import InputComponent from '../../components/Input';
 import ButtonComponent from '../../components/Button';
 import { Agendamento } from '../../interfaces/agendamento.interface';
 import { criarAgendamento } from '../../controllers/agendamento.controller';
 
-type AgendamentoScreenProps = NativeStackScreenProps<SideBarStack, "Agendamento">;
+type AgendamentoScreenProps = NativeStackScreenProps<Navegacao, "Agendamento">;
 
 const AgendamentoScreen: React.FC<AgendamentoScreenProps> = (props) => {
+    const { barbearia } = props.route.params;
+
     const [barbeiro, setBarbeiro] = useState('');
     const [data, setData] = useState('');
     const [horario, setHorario] = useState('');
@@ -67,8 +69,9 @@ const AgendamentoScreen: React.FC<AgendamentoScreenProps> = (props) => {
 
     return (
         <Stack spacing={2} style={{ margin: 16, justifyContent: "center", position: "absolute", top: 0, bottom: 0, left: 0, right: 0 }}>
-            <View style={{ justifyContent: 'center', alignItems: "center" }}>
-                <Text style={{ color: "black", fontSize: 25, fontFamily: "courrier" }}>Agendar Atendimento</Text>
+           
+            <View>
+                {/* <Image source={props.fotoCaminho ? { uri: props.fotoCaminho } : require('../imagens/sem_foto.jpg')} /> */}
             </View>
 
             <View style={{ margin: 50 }} />

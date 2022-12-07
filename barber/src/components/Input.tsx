@@ -38,8 +38,8 @@ const InputComponent: React.FC<InputComponentProps> = (props) => {
             borderTopWidth: 0,
             borderLeftWidth: 0,
             borderRightWidth: 0,
-            borderBottomColor: props.temErro ? "red" : temFoco ? "green" : "black",
-            color: props.temErro ? "red" : temFoco ? "green" : "black",
+            borderBottomColor: props.temErro ? "red" : temFoco ? "blue" : "black",
+            color: props.temErro ? "red" : temFoco ? "blue" : "black",
         },
         text: {
             borderColor: 'red',
@@ -56,7 +56,7 @@ const InputComponent: React.FC<InputComponentProps> = (props) => {
             borderLeftWidth: 0,
             borderRightWidth: 0,
             paddingTop: 10,
-            borderBottomColor: props.temErro ? "red" : temFoco ? "green" : "black",
+            borderBottomColor: props.temErro ? "red" : temFoco ? "blue" : "black",
         },
     });
 

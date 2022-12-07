@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Pressable, Stack, Text, TextInput } from "@react-native-material/core";
-import { RootStackParamList } from '../../interfaces/navegation.interface';
+import { Navegacao } from '../../interfaces/navegacao.interface';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Alert, Image, StyleSheet, View } from 'react-native';
 import { useState } from 'react';
@@ -8,7 +8,7 @@ import { cadastrarUsuarioAuthFirestore } from '../../controllers/usuario.control
 import InputComponent from '../../components/Input';
 import ButtonComponent from '../../components/Button';
 
-type CadastroScreenProps = NativeStackScreenProps<RootStackParamList, "Cadastro">;
+type CadastroScreenProps = NativeStackScreenProps<Navegacao, "Cadastro">;
 
 const CadastroScreen: React.FC<CadastroScreenProps> = (props) => {
     const [email, setEmail] = useState('');

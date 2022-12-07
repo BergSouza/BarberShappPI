@@ -3,8 +3,12 @@ export interface Usuario {
     nome: string
     telefone: string
     email: string
-    foto_perfil: string 
+    foto_perfil: string
+    link_foto_perfil?: string
     eBarbeiro: boolean
     eDonoBarbearia: boolean
-    agenda: string[]
+    barbearias: [];
+    agendamentos_cliente: [];
+    agendamentos_barbeiro: [];
+    trabalha_barbearia: string;
 }

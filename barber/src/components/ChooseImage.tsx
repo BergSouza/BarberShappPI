@@ -4,7 +4,8 @@ import { launchImageLibrary, MediaType } from 'react-native-image-picker';
 import ButtonComponent from './Button';
 
 export interface ChooseImageComponentProps {
-    setFotoUri: React.Dispatch<React.SetStateAction<undefined | string>>
+    setFotoUri: React.Dispatch<React.SetStateAction<undefined | string>>;
+    texto?: string;
 }
 
 const ChooseImageComponent: React.FC<ChooseImageComponentProps> = (props) => {
@@ -26,7 +27,7 @@ const ChooseImageComponent: React.FC<ChooseImageComponentProps> = (props) => {
     }
 
     return (
-        <ButtonComponent texto='Escolher foto' onPress={() => { escolherFoto() }}></ButtonComponent>
+        <ButtonComponent texto={props.texto? props.texto : 'Escolher foto'} onPress={() => { escolherFoto() }}></ButtonComponent>
     )
 }
 
