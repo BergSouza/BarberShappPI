@@ -20,6 +20,10 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
+       
+      - name: Install package dependencies
+        working-directory: ./barber/
+        run: npm install
       
       - name: Execute test cases
         run: npm run test
