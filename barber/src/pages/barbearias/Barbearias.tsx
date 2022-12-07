@@ -8,12 +8,14 @@ import { Text } from '@react-native-material/core';
 import InputComponent from '../../components/Input';
 import Card from '../../components/Card';
 import { lerBarbearias } from '../../controllers/barbearia.controller';
+import LoadingComponent from '../../components/Loading';
 
 type BarbeariasProps = NativeStackScreenProps<Navegacao, "Barbearias">;
 
 const BarbeariasScreen: React.FC<BarbeariasProps> = (props) => {
     const [barbearias, setBarbearias] = useState<Barbearia[]>([]);
     const [barbeariasFiltradas, setBarbeariasFiltradas] = useState<Barbearia[]>([]);
+    const [carregando, setCarregando] = useState<boolean>(false);
 
     const [filtro, setFiltro] = useState<string>("");
     const [temErro, setTemErro] = useState<boolean>(false);
@@ -21,10 +23,13 @@ const BarbeariasScreen: React.FC<BarbeariasProps> = (props) => {
 
 
     React.useEffect(() => {
+        setCarregando(true);
         lerBarbearias().then((barbs) => {
             setBarbearias(barbs);
+            setCarregando(false);
         }).catch((error) => {
             console.log(error);
+            setCarregando(false);
         });
     }, [])
 
@@ -35,7 +40,14 @@ const BarbeariasScreen: React.FC<BarbeariasProps> = (props) => {
         } else {
             setBarbeariasFiltradas([]);
         }
-    }, [filtro])
+    }, [filtro]);
+
+    if (carregando) {
+        return (
+            <LoadingComponent />
+        )
+    }
+
 
     return (
         <SafeAreaView style={styles.container}>
@@ -43,6 +55,7 @@ const BarbeariasScreen: React.FC<BarbeariasProps> = (props) => {
                 setTemErro={setTemErro} temErro={temErro} textoErro={textoErro} texto={filtro} nomeIcon="search"
             />
             <ScrollView style={styles.scrollView}>
+                {barbeariasFiltradas.length <= 0 && barbearias.length <= 0 ? <Text>Não existem barbearias cadastradas ainda!</Text> : null}
                 {barbeariasFiltradas && barbeariasFiltradas.length > 0 ?
                     barbeariasFiltradas.map((barbearia, i) => (<Card key={"barb-filter-" + i} fotoCaminho={barbearia.link_foto}
                         titulo={barbearia.nome} descricao={barbearia.endereco}

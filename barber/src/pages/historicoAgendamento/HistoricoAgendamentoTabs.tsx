@@ -10,9 +10,6 @@ import ButtonComponent from '../../components/Button';
 import { atualizarUsuarioFirestore } from '../../controllers/usuario.controller';
 import { Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import AgendamentoScreen from './Agendamento';
-import BarbeariaScreen from './Barbearia';
-import BarbeirosScreen from './Barbeiros';
 
 const Tab = createBottomTabNavigator<Navegacao>();
 
@@ -25,8 +22,8 @@ const screenOptions = {
     tabBarInactiveTintColor: "white",
 }
 
-type BarbeariasTabsProps = NativeStackScreenProps<Navegacao, "BarbeariasTabs">;
-const BarbeariasTabsScreen: React.FC<BarbeariasTabsProps> = (props) => {
+type HistoricoAgendamentoTabsProps = NativeStackScreenProps<Navegacao, "HistoricoAgendamentoTabs">;
+const HistoricoAgendamentoTabsScreen: React.FC<HistoricoAgendamentoTabsProps> = (props) => {
     const [usuario, setUsuario] = useState<Usuario | null>(null);
 
     React.useEffect(() => {
@@ -78,31 +75,38 @@ const BarbeariasTabsScreen: React.FC<BarbeariasTabsProps> = (props) => {
         )
     }
 
-    const { barbearia } = props.route.params;
 
     return (
         <Tab.Navigator screenOptions={screenOptions}>
-            <Tab.Screen name="Agendamento" component={AgendamentoScreen} initialParams={{ barbearia }}
+            <Tab.Screen name="MinhasBarbearias" component={MinhasBarbeariasScreen}
                 options={{
-                    headerShown: false, tabBarLabel: 'Agendar',
+                    headerShown: false, tabBarLabel: 'Barbearias',
                     tabBarIcon: ({ color, size }) => (
-                        <Icon name="clock" color={color} size={size} />
+                        <Icon name="scissors" color={color} size={size} />
                     )
                 }}
             />
-            <Tab.Screen name="Barbeiros" component={BarbeirosScreen} initialParams={{ barbearia }}
+            <Tab.Screen name="AdicionarBarbearia" component={AdicionarBarbeariaScreen}
                 options={{
-                    headerShown: false, tabBarLabel: 'Barbeiros',
+                    headerShown: false, tabBarLabel: 'Adicionar',
+                    tabBarIcon: ({ color, size }) => (
+                        <Icon name="plus" color={color} size={size} />
+                    )
+                }}
+            />
+            <Tab.Screen name="Barbeiros" component={BarbeirosScreen}
+                options={{
+                    headerShown: false,
                     tabBarIcon: ({ color, size }) => (
                         <Icon name="users" color={color} size={size} />
                     )
                 }}
             />
-            <Tab.Screen name="Barbearia" component={BarbeariaScreen} initialParams={{ barbearia }}
+            <Tab.Screen name="Notificacoes" component={NotificacoesScreen}
                 options={{
-                    headerShown: false, tabBarLabel: 'Barbearia',
+                    headerShown: false,
                     tabBarIcon: ({ color, size }) => (
-                        <Icon name="map-pin" color={color} size={size} />
+                        <Icon name="bell" color={color} size={size} />
                     )
                 }}
             />
@@ -110,4 +114,4 @@ const BarbeariasTabsScreen: React.FC<BarbeariasTabsProps> = (props) => {
     )
 }
 
-export default BarbeariasTabsScreen;
+export default HistoricoAgendamentoTabsScreen;

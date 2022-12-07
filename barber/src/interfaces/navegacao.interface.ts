@@ -16,5 +16,6 @@ export type Navegacao = {
     Agendamento: {barbearia: Barbearia}
     Barbearia: {barbearia: Barbearia} 
     Barbeiros: {barbearia: Barbearia}
+    HistoricoAgendamentoTabs: undefined
 
 }

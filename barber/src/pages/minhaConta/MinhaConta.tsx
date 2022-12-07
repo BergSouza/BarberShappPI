@@ -105,13 +105,13 @@ const MinhaContaScreen: React.FC<MinhaContaScreenProps> = (props) => {
     }
 
     return (
-        <ScrollView style={{ margin: 16 }}>
+        <ScrollView style={{ margin: 16, marginTop: 30 }}>
             <View style={{ justifyContent: 'center', alignItems: "center" }}>
                 <Image style={{ width: "100%", height: 200, borderRadius: 5 }} source={fotoCaminho ? { uri: fotoCaminho }
                     : usuario.link_foto_perfil ? { uri: usuario.link_foto_perfil } : require('../../imagens/sem_foto.jpg')} />
             </View>
             <View style={{ margin: 5 }} />
-            <ChooseImageComponent setFotoUri={setFotoCaminho} texto="Escolher Foto"></ChooseImageComponent>
+            <ChooseImageComponent setFotoUri={setFotoCaminho} texto="Escolher Foto" disabled={!estaEditando}></ChooseImageComponent>
             <View style={{ margin: 15 }} />
 
             <Text style={{ fontWeight: "bold", textAlign: "center" }}>{usuario.email}</Text>

@@ -1,5 +1,3 @@
-import { Horario } from "./horario.interface";
-
 export interface Barbearia {
     id: string;
     pertence: string;

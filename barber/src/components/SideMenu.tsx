@@ -11,7 +11,7 @@ import { Usuario } from '../interfaces/usuario.interface';
 import { usuarioReducer } from '../reducers/UsuarioReducer';
 import HistoricoAgendamentoScreen from '../pages/historicoAgendamento/HistoricoAgendamento';
 import MinhasBarbeariasScreen from '../pages/minhasBarbeariasTabs/MinhasBarbeariasTabs';
-import BarbeariaEmpregadoraScreen from '../pages/barbeariaEmpregadora/BarbeariaEmpregadora';
+import BarbeariaEmpregadoraScreen from '../pages/barbeariaEmpregadoraTabs/BarbeariaEmpregadora';
 import MinhasBarbeariasTabsScreen from '../pages/minhasBarbeariasTabs/MinhasBarbeariasTabs';
 import { Navegacao } from '../interfaces/navegacao.interface';
 import MinhaContaScreen from '../pages/minhaConta/MinhaConta';
