@@ -23,7 +23,7 @@ jobs:
                
       - name: Install package dependencies
         with: 
-          path: barber/
+          path: /barber/
           run: npm install
       
       - name: Execute test cases
