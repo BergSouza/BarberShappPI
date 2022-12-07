@@ -23,7 +23,7 @@ jobs:
        
       - name: Install package dependencies
         working-directory: ./barber/
-        run: npm install
+        run: npm install --force
       
       - name: Execute test cases
         run: npm run test
