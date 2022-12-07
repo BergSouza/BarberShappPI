@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { cadastrarUsuarioAuthFirestore } from '../../controllers/usuario.controller';
 import InputComponent from '../../components/Input';
 import ButtonComponent from '../../components/Button';
+import LoadingComponent from '../../components/Loading';
 
 type CadastroScreenProps = NativeStackScreenProps<Navegacao, "Cadastro">;
 
@@ -15,20 +16,26 @@ const CadastroScreen: React.FC<CadastroScreenProps> = (props) => {
     const [senha, setSenha] = useState('');
     const [confirmarSenha, setConfirmarSenha] = useState('');
 
+    const [carregando, setCarregando] = useState(false);
     const [erroEmail, setErroEmail] = useState(false);
     const [erroSenha, setErroSenha] = useState(false);
     const [erroConfirmarSenha, setErroConfirmarSenha] = useState(false);
 
     const tentarCadastrar = () => {
+        setCarregando(true)
         if (!senha || !confirmarSenha || !email) {
             !email ? setErroEmail(true) : null;
             !senha ? setErroSenha(true) : null;
             !confirmarSenha ? setErroConfirmarSenha(true) : null;
+            setCarregando(false)
+
             return
         }
         if (senha !== confirmarSenha) {
             setErroSenha(true);
             setErroConfirmarSenha(true);
+            setCarregando(false)
+
             return
         }
         cadastrarUsuarioAuthFirestore(email, senha).then((foiRegistrado) => {
@@ -46,6 +53,7 @@ const CadastroScreen: React.FC<CadastroScreenProps> = (props) => {
                     [{ text: "OK" }]
                 );
             }
+            setCarregando(false)
 
         }).catch((error) => {
             Alert.alert(
@@ -53,7 +61,11 @@ const CadastroScreen: React.FC<CadastroScreenProps> = (props) => {
                 [{ text: "OK" }]
             );
             console.log(error);
+            setCarregando(false)
         })
+    }
+    if (carregando) {
+        return (<LoadingComponent />)
     }
 
     return (
@@ -68,10 +80,10 @@ const CadastroScreen: React.FC<CadastroScreenProps> = (props) => {
                 setTexto={setEmail} setTemErro={setErroEmail} texto={email}
             />
             <InputComponent placeholder="Senha" temErro={erroSenha} textoErro={senha !== confirmarSenha ? 'Senhas não são iguais' : 'Erro no campo senha'} secureTextEntry={true}
-                 setTexto={setSenha} setTemErro={setErroSenha} texto={senha}
+                setTexto={setSenha} setTemErro={setErroSenha} texto={senha}
             />
             <InputComponent placeholder="Confirmar Senha" temErro={erroConfirmarSenha} textoErro={senha !== confirmarSenha ? 'Senhas não são iguais' : 'Erro no campo senha'} secureTextEntry={true}
-                 setTexto={setConfirmarSenha} setTemErro={setErroConfirmarSenha} texto={confirmarSenha}
+                setTexto={setConfirmarSenha} setTemErro={setErroConfirmarSenha} texto={confirmarSenha}
             />
             <View style={{ margin: 15 }} />
             <ButtonComponent texto='Cadastrar' onPress={() => tentarCadastrar()} />

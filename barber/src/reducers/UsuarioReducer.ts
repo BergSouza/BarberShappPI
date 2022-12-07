@@ -25,7 +25,7 @@ const usuarioSlice = createSlice({
   },
   reducers: {
     update: (state, action: PayloadAction<Usuario>) => {
-      state.value = action.payload;
+      state.value = {...action.payload};
     },
   }
 })
