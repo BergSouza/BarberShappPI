@@ -30,7 +30,8 @@ const InputComponent: React.FC<InputComponentProps> = (props) => {
         },
         input: {
             flex: 6,
-            height: 50,
+            height: props.multiline? 100 : 50,
+            textAlignVertical: props.multiline? "top" : "center",
             borderWidth: 1,
             padding: 10,
             fontSize: 15,

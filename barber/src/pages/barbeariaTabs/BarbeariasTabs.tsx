@@ -2,8 +2,6 @@ import * as React from 'react';
 import { Navegacao } from '../../interfaces/navegacao.interface';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useState } from 'react';
-import { Barbearia } from '../../interfaces/barbearia.interface';
-import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { usuarioReducer } from '../../reducers/UsuarioReducer';
 import { Usuario } from '../../interfaces/usuario.interface';
@@ -13,6 +11,8 @@ import { atualizarUsuarioFirestore } from '../../controllers/usuario.controller'
 import { Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import AgendamentoScreen from './Agendamento';
+import BarbeariaScreen from './Barbearia';
+import BarbeirosScreen from './Barbeiros';
 
 const Tab = createBottomTabNavigator<Navegacao>();
 
@@ -78,15 +78,31 @@ const BarbeariasTabsScreen: React.FC<BarbeariasTabsProps> = (props) => {
         )
     }
 
-    const {barbearia} = props.route.params;
+    const { barbearia } = props.route.params;
 
     return (
         <Tab.Navigator screenOptions={screenOptions}>
-            <Tab.Screen name="Agendamento" component={AgendamentoScreen} initialParams={{barbearia}}
+            <Tab.Screen name="Agendamento" component={AgendamentoScreen} initialParams={{ barbearia }}
                 options={{
                     headerShown: false, tabBarLabel: 'Agendar',
                     tabBarIcon: ({ color, size }) => (
-                        <Icon name="scissors" color={color} size={size} />
+                        <Icon name="clock" color={color} size={size} />
+                    )
+                }}
+            />
+            <Tab.Screen name="Barbeiros" component={BarbeirosScreen} initialParams={{ barbearia }}
+                options={{
+                    headerShown: false, tabBarLabel: 'Barbeiros',
+                    tabBarIcon: ({ color, size }) => (
+                        <Icon name="users" color={color} size={size} />
+                    )
+                }}
+            />
+            <Tab.Screen name="Barbearia" component={BarbeariaScreen} initialParams={{ barbearia }}
+                options={{
+                    headerShown: false, tabBarLabel: 'Barbearia',
+                    tabBarIcon: ({ color, size }) => (
+                        <Icon name="map-pin" color={color} size={size} />
                     )
                 }}
             />

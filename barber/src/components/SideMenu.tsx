@@ -2,19 +2,18 @@ import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import * as React from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import AgendamentoScreen from '../pages/barbeariaTabs/Agendamento';
 import BarbeariasScreen from '../pages/barbearias/Barbearias';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Alert } from 'react-native';
 import { deslogar } from '../controllers/usuario.controller';
 import { Usuario } from '../interfaces/usuario.interface';
 import { usuarioReducer } from '../reducers/UsuarioReducer';
-import HistoricoAgendamentoScreen from '../pages/historicoAgendamento/HistoricoAgendamento';
-import MinhasBarbeariasScreen from '../pages/minhasBarbeariasTabs/MinhasBarbeariasTabs';
-import BarbeariaEmpregadoraScreen from '../pages/barbeariaEmpregadora/BarbeariaEmpregadora';
+import BarbeariaEmpregadoraScreen from '../pages/barbeariaEmpregadoraTabs/BarbeariaEmpregadora';
 import MinhasBarbeariasTabsScreen from '../pages/minhasBarbeariasTabs/MinhasBarbeariasTabs';
 import { Navegacao } from '../interfaces/navegacao.interface';
 import MinhaContaScreen from '../pages/minhaConta/MinhaConta';
+import HistoricoAgendamentoTabsScreen from '../pages/historicoAgendamentoTabs/HistoricoAgendamentoTabs';
+import BarbeiroTabsScreen from '../pages/barbeiroTabs/BarbeiroTabs';
 
 const Drawer = createDrawerNavigator<Navegacao>();
 
@@ -66,9 +65,9 @@ const SideMenuScreen: React.FC<SideMenuScreenProps> = (props) => {
       <Drawer.Navigator initialRouteName="MinhaConta" screenOptions={screenOptions}>
         <Drawer.Screen name='MinhaConta' component={MinhaContaScreen} options={{ title: 'Minha Conta' }} />
         <Drawer.Screen name='Barbearias' component={BarbeariasScreen} options={{ title: 'Todas as Barbearias' }}  />
-        <Drawer.Screen name='HistoricoAgendamento' component={HistoricoAgendamentoScreen} options={{ title: 'Historico Agendamentos' }} />
+        <Drawer.Screen name='HistoricoAgendamentoTabs' component={HistoricoAgendamentoTabsScreen} options={{ title: 'Historico Agendamentos' }} />
         <Drawer.Screen name='MinhasBarbeariasTabs' component={MinhasBarbeariasTabsScreen} options={{ title: !usuario.eDonoBarbearia ? 'Sou Dono Barbearia?' : 'Gerenciamento Barbearias' }} />
-        <Drawer.Screen name='BarbeariaEmpregadora' component={BarbeariaEmpregadoraScreen} options={{ title: !usuario.eBarbeiro ? 'Sou Barbeiro?' : 'Barbearia Empregadora' }} />
+        <Drawer.Screen name='BerbeiroTabs' component={BarbeiroTabsScreen} options={{ title: !usuario.eBarbeiro ? 'Sou Barbeiro?' : 'Barbearia Empregadora' }} />
       </Drawer.Navigator>
   );
 };

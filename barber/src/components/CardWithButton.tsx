@@ -7,7 +7,7 @@ export interface ButtonComponentProps extends PressableProps {
     descricao?: string;
 }
 
-const CardComponent: React.FC<ButtonComponentProps> = (props) => {
+const CardWithButtonComponent: React.FC<ButtonComponentProps> = (props) => {
     const styles = StyleSheet.create({
         card: {
             borderWidth: 1,
@@ -30,7 +30,7 @@ const CardComponent: React.FC<ButtonComponentProps> = (props) => {
             borderRadius: 5,
         },
         textTitle: {
-            fontSize: 18,
+            fontSize: 23,
             marginTop: -10,
             marginLeft: 10,
             color: "black"
@@ -56,4 +56,4 @@ const CardComponent: React.FC<ButtonComponentProps> = (props) => {
 }
 
 
-export default CardComponent;
+export default CardWithButtonComponent;

@@ -15,7 +15,8 @@ export const criarBarbearia = async (barbearia: Barbearia, fotoUri?: string) => 
             barbearia.foto = PASTA_STORAGE + "/" + id;
             await criarArquivoStorage(barbearia.foto, arquivo);
         }
-        return atualizarBarbearia(id, barbearia);
+        await atualizarBarbearia(id, barbearia);
+        return id
     } catch (erro) {
         console.log(erro);
         return false;
@@ -30,8 +31,13 @@ export const deletarBarbearia = (id: string) => {
     return deletarFirestore(COLECAO_BARBEARIA, id);
 }
 
-export const lerBarbearia = (id: string) => {
-    return lerFirestore<Barbearia>(COLECAO_BARBEARIA, id);
+export const lerBarbearia = async (id: string) => {
+    const barberaria = await lerFirestore<Barbearia>(COLECAO_BARBEARIA, id);
+    if (barberaria.foto) {
+        barberaria.link_foto = await lerArquivoStorage(barberaria.foto);
+    }
+    return barberaria;
+
 }
 
 export const lerBarbearias = async () => {

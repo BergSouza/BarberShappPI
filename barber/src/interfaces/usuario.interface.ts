@@ -7,8 +7,18 @@ export interface Usuario {
     link_foto_perfil?: string
     eBarbeiro: boolean
     eDonoBarbearia: boolean
-    barbearias: [];
-    agendamentos_cliente: [];
-    agendamentos_barbeiro: [];
+    barbearias: string[];
+    agendamentos_cliente: string[];
+    agendamentos_barbeiro: string[];
     trabalha_barbearia: string;
+    pedido_barbeiro: Pedido[];
+    comentario_barbeiro: Pedido[];
+    avaliacao: number;
+}
+
+interface Pedido{
+    horario: string;
+    data: string;
+    usuario_id: string;
+    comentario: string;
 }

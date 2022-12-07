@@ -27,7 +27,10 @@ export const cadastrarUsuarioAuthFirestore = async (email: string, senha: string
                 barbearias: [],
                 agendamentos_cliente: [],
                 agendamentos_barbeiro: [],
-                trabalha_barbearia: ""
+                trabalha_barbearia: "",
+                pedido_barbeiro: [],
+                comentario_barbeiro: [],
+                avaliacao: 0
             }
 
             return await atualizarUsuarioFirestore(usuario);
@@ -47,6 +50,7 @@ export const entrar = async (email: string, senha: string) => {
         if (usuarioFirebase !== null) {
             auth.dispatch(login());
             const usuario = await lerUsuarioFirestore(usuarioFirebase.uid);
+            console.log(usuario)
             usuarioReducer.dispatch(update(usuario));
             return await criarIdUsuarioAsyncStorage(usuarioFirebase.uid);
         }

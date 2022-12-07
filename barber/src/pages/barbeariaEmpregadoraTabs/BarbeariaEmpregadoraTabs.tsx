@@ -2,10 +2,7 @@ import * as React from 'react';
 import { Navegacao } from '../../interfaces/navegacao.interface';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useState } from 'react';
-import { Barbearia } from '../../interfaces/barbearia.interface';
-import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MinhasBarbeariasScreen from './MinhasBarbearias';
 import { usuarioReducer } from '../../reducers/UsuarioReducer';
 import { Usuario } from '../../interfaces/usuario.interface';
 import { Stack } from '@react-native-material/core';
@@ -13,9 +10,6 @@ import ButtonComponent from '../../components/Button';
 import { atualizarUsuarioFirestore } from '../../controllers/usuario.controller';
 import { Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import AdicionarBarbeariaScreen from './AdicionarBarbearia';
-import NotificacoesScreen from './Notificacoes';
-import BarbeirosScreen from './Barbeiros';
 
 const Tab = createBottomTabNavigator<Navegacao>();
 
@@ -28,8 +22,8 @@ const screenOptions = {
     tabBarInactiveTintColor: "white",
 }
 
-type MinhasBarbeariasTabsProps = NativeStackScreenProps<Navegacao, "MinhasBarbeariasTabs">;
-const MinhasBarbeariasTabsScreen: React.FC<MinhasBarbeariasTabsProps> = (props) => {
+type BarbeariaEmpregadoraTabsProps = NativeStackScreenProps<Navegacao, "BarbeariaEmpregadoraTabs">;
+const BarbeariaEmpregadoraTabsScreen: React.FC<BarbeariaEmpregadoraTabsProps> = (props) => {
     const [usuario, setUsuario] = useState<Usuario | null>(null);
 
     React.useEffect(() => {
@@ -51,9 +45,13 @@ const MinhasBarbeariasTabsScreen: React.FC<MinhasBarbeariasTabsProps> = (props) 
         newUsuario.eDonoBarbearia = true;
         atualizarUsuarioFirestore(newUsuario).then(() => {
             setUsuario(newUsuario)
+            Alert.alert(
+                "Solicitação enviada para o dono da barbearia!", "Suas configurações aparecerão quando sua solicitação for aceita",
+                [{ text: "OK" }]
+            );
         }).catch(() => {
             Alert.alert(
-                "Ocorreu um erro ao se tornar dono de barbearia!", "Verifique sua conexão",
+                "Ocorreu um erro ao se tornar barbeiro!", "Verifique sua conexão",
                 [{ text: "OK" }]
             );
         });
@@ -92,8 +90,32 @@ const MinhasBarbeariasTabsScreen: React.FC<MinhasBarbeariasTabsProps> = (props) 
                     )
                 }}
             />
+            <Tab.Screen name="Meu " component={AdicionarBarbeariaScreen}
+                options={{
+                    headerShown: false, tabBarLabel: 'Adicionar',
+                    tabBarIcon: ({ color, size }) => (
+                        <Icon name="plus" color={color} size={size} />
+                    )
+                }}
+            />
+            <Tab.Screen name="AgendamentosBabeiro" component={BarbeirosScreen}
+                options={{
+                    headerShown: false,
+                    tabBarIcon: ({ color, size }) => (
+                        <Icon name="users" color={color} size={size} />
+                    )
+                }}
+            />
+            <Tab.Screen name="Notificacoes" component={NotificacoesScreen}
+                options={{
+                    headerShown: false,
+                    tabBarIcon: ({ color, size }) => (
+                        <Icon name="bell" color={color} size={size} />
+                    )
+                }}
+            />
         </Tab.Navigator>
     )
 }
 
-export default MinhasBarbeariasTabsScreen;
+export default BarbeariaEmpregadoraTabsScreen;

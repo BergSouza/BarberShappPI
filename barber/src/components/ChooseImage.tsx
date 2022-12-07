@@ -3,7 +3,7 @@ import { Pressable, PressableProps, StyleSheet, Text } from 'react-native';
 import { launchImageLibrary, MediaType } from 'react-native-image-picker';
 import ButtonComponent from './Button';
 
-export interface ChooseImageComponentProps {
+export interface ChooseImageComponentProps extends PressableProps{
     setFotoUri: React.Dispatch<React.SetStateAction<undefined | string>>;
     texto?: string;
 }
@@ -27,7 +27,7 @@ const ChooseImageComponent: React.FC<ChooseImageComponentProps> = (props) => {
     }
 
     return (
-        <ButtonComponent texto={props.texto? props.texto : 'Escolher foto'} onPress={() => { escolherFoto() }}></ButtonComponent>
+        <ButtonComponent {...props} texto={props.texto? props.texto : 'Escolher foto'} onPress={() => { props.disabled? null :escolherFoto() }}></ButtonComponent>
     )
 }
 

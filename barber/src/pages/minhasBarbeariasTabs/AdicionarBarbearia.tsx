@@ -9,7 +9,9 @@ import InputComponent from '../../components/Input';
 import ChooseImageComponent from '../../components/ChooseImage';
 import { criarBarbearia } from '../../controllers/barbearia.controller';
 import { Barbearia } from '../../interfaces/barbearia.interface';
-import { lerIdUsuarioAsyncStorage } from '../../controllers/usuario.controller';
+import { atualizarUsuarioFirestore, lerIdUsuarioAsyncStorage } from '../../controllers/usuario.controller';
+import LoadingComponent from '../../components/Loading';
+import { update, usuarioReducer } from '../../reducers/UsuarioReducer';
 
 type AdicionarBarbeariaProps = NativeStackScreenProps<Navegacao, "AdicionarBarbearia">;
 
@@ -19,13 +21,17 @@ const AdicionarBarbeariaScreen: React.FC<AdicionarBarbeariaProps> = (props) => {
     const [nome, setNome] = useState<string>('');
     const [fotoCaminho, setFotoCaminho] = useState<undefined | string>();
 
+    const [carregando, setCarregando] = useState(false);
+
     const [erroEndereco, setErroEndereco] = useState(false);
     const [erroCNPJ, setErroCNPJ] = useState(false);
     const [erroNome, setErroNome] = useState(false);
 
     const tentarCadastrarBarbearia = async () => {
+        setCarregando(true);
         if (!cnpj || !endereco) {
             !cnpj ? setErroCNPJ(true) : null;
+            setCarregando(false);
             return;
         }
         const idUsuario = await lerIdUsuarioAsyncStorage();
@@ -41,24 +47,39 @@ const AdicionarBarbeariaScreen: React.FC<AdicionarBarbeariaProps> = (props) => {
                 ids_barbeiros: []
             }
 
-            criarBarbearia(barbearia, fotoCaminho).then((idBarbearia) => {
+            criarBarbearia(barbearia, fotoCaminho).then(async (idBarbearia) => {
+                const novoUsuario = usuarioReducer.getState().value;
+                const novasBarbearias = [...novoUsuario.barbearias]
+                if (idBarbearia) {
+                    novasBarbearias.push(idBarbearia)
+                    novoUsuario.barbearias = [...novasBarbearias];
+                }
+
+                await atualizarUsuarioFirestore(novoUsuario);
+                usuarioReducer.dispatch(update(novoUsuario));
+
                 Alert.alert(
                     "Barbearia cadastrada com sucesso!",
                     "",
                     [{ text: "OK" }]
                 );
-
-                //props.navigation.push("Menu")
+                setCarregando(false);
+                
+                props.navigation.goBack();
             }).catch((error) => {
                 Alert.alert(
                     "Erro ao cadastrar barbearia!",
                     error,
                     [{ text: "OK" }]
                 );
+                setCarregando(false);
             });
         }
 
+    }
 
+    if (carregando) {
+        return (<LoadingComponent />)
     }
 
     return (

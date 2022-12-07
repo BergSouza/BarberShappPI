@@ -2,10 +2,7 @@ import * as React from 'react';
 import { Navegacao } from '../../interfaces/navegacao.interface';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useState } from 'react';
-import { Barbearia } from '../../interfaces/barbearia.interface';
-import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MinhasBarbeariasScreen from './MinhasBarbearias';
 import { usuarioReducer } from '../../reducers/UsuarioReducer';
 import { Usuario } from '../../interfaces/usuario.interface';
 import { Stack } from '@react-native-material/core';
@@ -13,9 +10,8 @@ import ButtonComponent from '../../components/Button';
 import { atualizarUsuarioFirestore } from '../../controllers/usuario.controller';
 import { Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import AdicionarBarbeariaScreen from './AdicionarBarbearia';
-import NotificacoesScreen from './Notificacoes';
-import BarbeirosScreen from './Barbeiros';
+import AgendamentosPendentesScreen from './AgendamentosPendentes';
+import AgendamentosConcluidosScreen from './AgendamentosConcluidos';
 
 const Tab = createBottomTabNavigator<Navegacao>();
 
@@ -28,8 +24,8 @@ const screenOptions = {
     tabBarInactiveTintColor: "white",
 }
 
-type MinhasBarbeariasTabsProps = NativeStackScreenProps<Navegacao, "MinhasBarbeariasTabs">;
-const MinhasBarbeariasTabsScreen: React.FC<MinhasBarbeariasTabsProps> = (props) => {
+type HistoricoAgendamentoTabsProps = NativeStackScreenProps<Navegacao, "HistoricoAgendamentoTabs">;
+const HistoricoAgendamentoTabsScreen: React.FC<HistoricoAgendamentoTabsProps> = (props) => {
     const [usuario, setUsuario] = useState<Usuario | null>(null);
 
     React.useEffect(() => {
@@ -84,11 +80,19 @@ const MinhasBarbeariasTabsScreen: React.FC<MinhasBarbeariasTabsProps> = (props) 
 
     return (
         <Tab.Navigator screenOptions={screenOptions}>
-            <Tab.Screen name="MinhasBarbearias" component={MinhasBarbeariasScreen}
+            <Tab.Screen name="AgendamentosPendentes" component={AgendamentosPendentesScreen}
                 options={{
-                    headerShown: false, tabBarLabel: 'Barbearias',
+                    headerShown: false, tabBarLabel: 'Pendentes',
                     tabBarIcon: ({ color, size }) => (
-                        <Icon name="scissors" color={color} size={size} />
+                        <Icon name="bell" color={color} size={size} />
+                    )
+                }}
+            />
+            <Tab.Screen name="AgendamentosConcluidos" component={AgendamentosConcluidosScreen}
+                options={{
+                    headerShown: false, tabBarLabel: 'Concluidos',
+                    tabBarIcon: ({ color, size }) => (
+                        <Icon name="check-circle" color={color} size={size} />
                     )
                 }}
             />
@@ -96,4 +100,4 @@ const MinhasBarbeariasTabsScreen: React.FC<MinhasBarbeariasTabsProps> = (props) 
     )
 }
 
-export default MinhasBarbeariasTabsScreen;
+export default HistoricoAgendamentoTabsScreen;

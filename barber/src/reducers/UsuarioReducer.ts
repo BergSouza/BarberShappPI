@@ -9,7 +9,13 @@ const usuario: Usuario = {
   foto_perfil: '',
   eBarbeiro: false,
   eDonoBarbearia: false,
-  agenda: []
+  barbearias: [],
+  agendamentos_cliente: [],
+  agendamentos_barbeiro: [],
+  trabalha_barbearia: '',
+  pedido_barbeiro: [],
+  comentario_barbeiro: [],
+  avaliacao: 0
 }
 
 const usuarioSlice = createSlice({
