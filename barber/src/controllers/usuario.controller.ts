@@ -13,14 +13,14 @@ const PASTA_STORAGE = "foto_perfil";
 export const cadastrarUsuarioAuthFirestore = async (email: string, senha: string) => {
     try {
         const credenciais = await authFire.createUserWithEmailAndPassword(email, senha);
-        const usuarioFirebase = credenciais.user;
 
-        if (usuarioFirebase !== null) {
+        if (credenciais.user !== null) {
+            console.log("Hey")
             const usuario: Usuario = {
-                id: usuarioFirebase.uid,
+                id: credenciais.user.uid,
                 nome: "",
                 telefone: "",
-                email: usuarioFirebase.email ? usuarioFirebase.email : '',
+                email: email,
                 foto_perfil: "",
                 eBarbeiro: false,
                 eDonoBarbearia: false,
@@ -33,7 +33,7 @@ export const cadastrarUsuarioAuthFirestore = async (email: string, senha: string
                 avaliacao: 0
             }
 
-            return await atualizarUsuarioFirestore(usuario);
+            return await atualizarUsuarioFirestore(usuario, "");
         }
 
         return false
@@ -97,11 +97,11 @@ export const atualizarUsuarioFirestore = async (usuario: Usuario, fotoUri?: stri
         const arquivo = await response.blob();
         usuario.foto_perfil = PASTA_STORAGE + "/" + usuario.id;
         await criarArquivoStorage(usuario.foto_perfil, arquivo);
+        usuario.link_foto_perfil = await lerArquivoStorage(usuario.foto_perfil);
     }
 
-    usuario.link_foto_perfil = await lerArquivoStorage(usuario.foto_perfil);
     await atualizarFirestore<Usuario>(COLECAO_USUARIOS, usuario.id, usuario);
-    usuarioReducer.dispatch(update(usuario));   
+    usuarioReducer.dispatch(update(usuario));
     return true;
 }
 

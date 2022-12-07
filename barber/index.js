@@ -8,5 +8,5 @@ import { LogBox } from "react-native"
 if (!global.btoa) { global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 
-// LogBox.ignoreAllLogs(true);
+LogBox.ignoreAllLogs(true);
 AppRegistry.registerComponent(appName, () => App);
