@@ -30,7 +30,7 @@ const CardComponent: React.FC<ButtonComponentProps> = (props) => {
             borderRadius: 5,
         },
         textTitle: {
-            fontSize: 23,
+            fontSize: 18,
             marginTop: -10,
             marginLeft: 10,
             color: "black"

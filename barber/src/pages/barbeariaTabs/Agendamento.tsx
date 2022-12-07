@@ -109,7 +109,9 @@ const AgendamentoScreen: React.FC<AgendamentoScreenProps> = (props) => {
                 horario: horario,
                 data: data,
                 concluido: false,
-                descricao: descricaoCorte
+                descricao: descricaoCorte,
+                id_barbearia: barbearia.id,
+                aceita: false
             }
             setCarregando(true)
             criarAgendamento(agendamento).then((foiRegistrado) => {

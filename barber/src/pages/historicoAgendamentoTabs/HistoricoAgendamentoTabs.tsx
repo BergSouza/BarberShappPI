@@ -10,6 +10,8 @@ import ButtonComponent from '../../components/Button';
 import { atualizarUsuarioFirestore } from '../../controllers/usuario.controller';
 import { Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import AgendamentosPendentesScreen from './AgendamentosPendentes';
+import AgendamentosConcluidosScreen from './AgendamentosConcluidos';
 
 const Tab = createBottomTabNavigator<Navegacao>();
 
@@ -78,35 +80,19 @@ const HistoricoAgendamentoTabsScreen: React.FC<HistoricoAgendamentoTabsProps> = 
 
     return (
         <Tab.Navigator screenOptions={screenOptions}>
-            <Tab.Screen name="MinhasBarbearias" component={MinhasBarbeariasScreen}
+            <Tab.Screen name="AgendamentosPendentes" component={AgendamentosPendentesScreen}
                 options={{
-                    headerShown: false, tabBarLabel: 'Barbearias',
-                    tabBarIcon: ({ color, size }) => (
-                        <Icon name="scissors" color={color} size={size} />
-                    )
-                }}
-            />
-            <Tab.Screen name="AdicionarBarbearia" component={AdicionarBarbeariaScreen}
-                options={{
-                    headerShown: false, tabBarLabel: 'Adicionar',
-                    tabBarIcon: ({ color, size }) => (
-                        <Icon name="plus" color={color} size={size} />
-                    )
-                }}
-            />
-            <Tab.Screen name="Barbeiros" component={BarbeirosScreen}
-                options={{
-                    headerShown: false,
-                    tabBarIcon: ({ color, size }) => (
-                        <Icon name="users" color={color} size={size} />
-                    )
-                }}
-            />
-            <Tab.Screen name="Notificacoes" component={NotificacoesScreen}
-                options={{
-                    headerShown: false,
+                    headerShown: false, tabBarLabel: 'Pendentes',
                     tabBarIcon: ({ color, size }) => (
                         <Icon name="bell" color={color} size={size} />
+                    )
+                }}
+            />
+            <Tab.Screen name="AgendamentosConcluidos" component={AgendamentosConcluidosScreen}
+                options={{
+                    headerShown: false, tabBarLabel: 'Concluidos',
+                    tabBarIcon: ({ color, size }) => (
+                        <Icon name="check-circle" color={color} size={size} />
                     )
                 }}
             />

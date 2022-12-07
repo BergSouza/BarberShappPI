@@ -15,11 +15,16 @@ export const criarAgendamento = async (agendamento: Agendamento) => {
 }
 
 export const pegarHorariosProibidosAgendamentos = async (dataSelecionada: string, idBarbeiro: string) => {
-    const agendamentos = await procurarCompostaFirestore2<Agendamento>(COLECAO_AGENDAMENTO, "data", "==", dataSelecionada, 
-    "id_barbeiro", "==", idBarbeiro);
-    return agendamentos.map((agendamento)=>{
+    const agendamentos = await procurarCompostaFirestore2<Agendamento>(COLECAO_AGENDAMENTO, "data", "==", dataSelecionada,
+        "id_barbeiro", "==", idBarbeiro);
+    return agendamentos.map((agendamento) => {
         return agendamento.horario;
     });
+}
+
+
+export const lerAgendamentoPorUsuario = async (id_cliente: string) => {
+    return procurarFirestore<Agendamento>(COLECAO_AGENDAMENTO, "id_cliente", "==", id_cliente);
 }
 
 export const atualizarAgendamento = (id: string, agendamento: Agendamento) => {
